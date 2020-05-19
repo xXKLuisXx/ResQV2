@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+    <nav class="bg-purple-900 flex flex-wrap items-center justify-between p-6 pb-4 pt-4">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
                 xmlns="http://www.w3.org/2000/svg">

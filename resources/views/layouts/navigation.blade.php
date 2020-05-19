@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Document</title>
+    <title>@yield('title')</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+    <nav class="bg-purple-900 flex flex-wrap items-center justify-between p-6 pb-4 pt-4">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
             <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
                 xmlns="http://www.w3.org/2000/svg">
@@ -51,11 +51,11 @@
             </div>
             <div>
                 @guest
-                    <a href="{{ route('login') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    <a href="{{ route('login') }}" class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white">
                         {{ __('Iniciar sesión') }}
                     </a>
                     @if (Route::has('register'))
-                        <a class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                        <a class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white"
                         href="{{ route('register') }}"> {{ __('Registrarse') }}
                     </a>
                     @endif
@@ -65,7 +65,7 @@
                     {{ Auth::user()->name }}
                 </a>
 
-                <a class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+                <a class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white"
                     href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"> {{ __('Cerrar sesión') }}
                 </a>

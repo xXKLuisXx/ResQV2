@@ -1,5 +1,5 @@
-@extends('layouts.app')
-
+@extends('layouts.navigation')
+@section('title', 'Inicia sesion')
 @section('content')
 
 <div class="w-full max-w-xs">
@@ -9,7 +9,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                 {{ __('E-Mail Address') }}
             </label>
-            <input id="email" type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus> 
+            <input id="email" type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
             @error('email')
                 <span class="" role="alert">
                     <strong>{{ $message }}</strong>
@@ -38,13 +38,13 @@
             </button>
             @if (Route::has('password.request'))
                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                    
+
                 </a>
                 <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
                     {{ __('Forgot Your Password?') }}
                 </a>
             @endif
-            
+
         </div>
     </form>
     <p class="text-center text-gray-500 text-xs">
