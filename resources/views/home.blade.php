@@ -36,7 +36,8 @@
         </div>
     </div>
 </div>
-<button class="modal-open bg-transparent border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-indigo-500 font-bold py-2 px-4 rounded-full buttonBotAdd">
+<button
+    class="modal-open bg-transparent border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-indigo-500 font-bold py-2 px-4 rounded-full buttonBotAdd">
     <i class="fas fa-plus"></i>
 </button>
 
@@ -59,34 +60,46 @@
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
         <div class="modal-content py-4 text-left px-6">
-            <!--Title-->
-            <div class="flex justify-between items-center pb-3">
-                <p class="text-2xl font-bold">Simple Modal!</p>
-                <div class="modal-close cursor-pointer z-50">
-                    <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                        viewBox="0 0 18 18">
-                        <path
-                            d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                        </path>
-                    </svg>
+            <form action="" method="POST" action="{{ route('login') }}">
+                @csrf
+                <!--Title-->
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold">Historia</p>
+                    <div class="modal-close cursor-pointer z-50">
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 18 18">
+                            <path
+                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                            </path>
+                        </svg>
+                    </div>
                 </div>
-            </div>
 
-            <!--Body-->
-            <p>Modal content can go here</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
+                <!--Body-->
 
-            <!--Footer-->
-            <div class="flex justify-end pt-2">
-                <button
-                    class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action</button>
-                <button
-                    class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
-            </div>
+                <div class="flex items-center justify-center">
 
+                    <div class="bg-teal-500 text-white font-bold rounded-lg border shadow-lg p-10">
+                        <div class="text-black">
+                            <textarea name="historia"
+                                class="resize border rounded focus:outline-none focus:shadow-outline w-full"
+                                placeholder="Nueva Historia..."></textarea>
+                        </div>
+                        <label for="file-upload">
+                            <i class="fas fa-paperclip"> </i>
+                        </label>
+                        <input id="file-upload" type="file" name="imagenes" accept=".pdf,.jpg,.png" multiple>
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="flex justify-end pt-2">
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                        Publicar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
