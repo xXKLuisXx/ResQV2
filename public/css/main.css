@@ -72334,3 +72334,12 @@ video {
   right: 50px;
 }
 
+input[type="file"]{
+  display: none;
+}
+
+.fa-paperclip:hover {
+  color: white;
+  font-size: 120%;
+}
+

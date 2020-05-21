@@ -60,7 +60,8 @@
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
         <div class="modal-content py-4 text-left px-6 bg-purple-600">
-            <form action="" method="POST" action="{{ route('HistoriaController@store') }}">
+            <form action="" method="POST" action="{{ action('HistoriaController@store') }}"
+                enctype="multipart/form-data">
                 @csrf
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">
@@ -77,6 +78,8 @@
 
                 <!--Body-->
 
+
+
                 <div class="flex items-center justify-center">
 
                     <div class="bg-purple-500 text-white font-bold rounded-lg border shadow-lg p-10 w-full">
@@ -85,10 +88,12 @@
                                 class="resize border rounded focus:outline-none focus:shadow-outline w-full"
                                 placeholder="Nueva Historia..."></textarea>
                         </div>
-                        <label for="file-upload">
-                            <i class="fas fa-paperclip"> </i>
+                        <label for="files_name" class="flex" >
+                            <i class="fas fa-paperclip flex mt-1"> </i>
+                            <p class="flex ml-4" id="files_label">No files selected</p>
                         </label>
-                        <input id="file-upload" type="file" name="imagenes" accept=".pdf,.jpg,.png" multiple>
+                        <input id="files_name" type="file" name="imagenes[]" onchange="handleFilesUploaded()" multiple>
+                        
                     </div>
                 </div>
 
@@ -142,7 +147,11 @@
       modal.classList.toggle('pointer-events-none')
       body.classList.toggle('modal-active')
     }
-    
+    function handleFilesUploaded(){
+        var filesCmp = document.getElementById("files_name");
+        var label = document.getElementById("files_label");
+        label.innerHTML = filesCmp.files.length.toString() + " Items selected";
+    }
      
 </script>
 

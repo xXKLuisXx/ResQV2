@@ -17,11 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-});
+//Route::get('/home', function () {
+//    return view('home');
+//});
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('historia', 'HistoriaController');
 
-Route::get('/navigation', 'HistoriaController@index')->name('navigation');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('/navigation', 'HistoriaController@index')->name('navigation');

@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Historia;
+use App\Imagen;
 use Illuminate\Http\Request;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
 
-class HistoriaController extends Controller
+class ImagenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,6 @@ class HistoriaController extends Controller
     public function index()
     {
         //
-        return view('/historia');
     }
 
     /**
@@ -38,25 +35,16 @@ class HistoriaController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->imagenes as $imagen){
-            echo $imagen;
-            //Storage::putFile('storage', $imagen);
-        }
-        //echo $request->file('imagenes');
-        //$path = $request->imagenes->store('images');
-        //echo $path;
-        //Storage::putFile('images', new File('/path/to/photo')); echo $request->files;
-        
-        dd($request);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Historia  $historia
+     * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function show(Historia $historia)
+    public function show(Imagen $imagen)
     {
         //
     }
@@ -64,10 +52,10 @@ class HistoriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Historia  $historia
+     * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Historia $historia)
+    public function edit(Imagen $imagen)
     {
         //
     }
@@ -76,10 +64,10 @@ class HistoriaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Historia  $historia
+     * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Historia $historia)
+    public function update(Request $request, Imagen $imagen)
     {
         //
     }
@@ -87,10 +75,10 @@ class HistoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Historia  $historia
+     * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Historia $historia)
+    public function destroy(Imagen $imagen)
     {
         //
     }
