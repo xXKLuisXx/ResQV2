@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Perfil;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +57,7 @@ class PerfilController extends Controller
         $historis = "";
         $rating['total'] = 10;
         $rating['calificacion'] = 8;
-        return view('perfil/perfilShow', compact('user','historis','rating'));
+        return view('perfil/perfilShow', compact('user', 'historis', 'rating', 'mi_perfil'));
     }
 
     /**
