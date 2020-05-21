@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Historia;
+use App\Imagen;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,8 @@ class HistoriaController extends Controller
     public function index()
     {
         //
-        return view('/historia');
+        $historias = Historia::all();
+        return view('/historia', \compact('historias'));
     }
 
     /**
@@ -38,9 +40,19 @@ class HistoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $historia = new Historia();
+        $historia->contenido = $request->historia;
+        $historia->privacidad = $request->privacidad;
+        $historia->user_id = \Auth::id();
+        $historia->save();
         foreach ($request->imagenes as $imagen){
-            echo $imagen;
-            //Storage::putFile('storage', $imagen);
+            $imagenDb = new Imagen();
+            $imagenDb->historia_id = $historia->id;
+            $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
+            $imagenDb->extension = $imagen->extension();
+            $imagenDb->path = Storage::putFile('storage', $imagen);
+            $imagenDb->save();
+            //echo $path;
         }
         //echo $request->file('imagenes');
         //$path = $request->imagenes->store('images');

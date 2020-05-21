@@ -15,12 +15,11 @@ class CreateHistoriasTable extends Migration
     {
         Schema::create('historias', function (Blueprint $table) {
             $table->id();
-            $table->text('titulo');
+            $table->text('titulo')->nullable();
             $table->text('contenido');
             $table->text('privacidad');
-            $table->text('ratings');
-            $table->unsignedBigInteger('comentarios_id');
-
+            $table->unsignedBigInteger('user_id');
+            $table->text('ratings')->nullable();
             $table->timestamps();
         });
     }
