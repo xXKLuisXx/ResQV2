@@ -2,10 +2,12 @@
 @section('title', 'Inicio')
 @section('content')
 @parent
+
+@foreach ($historias as $historia)
 <div class="container mx-auto">
     <div class="max-w-sm w-full lg:max-w-full lg:flex">
         <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-            style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=448&q=80')"
+            style="background-image: url('{{$historia->imagenes[0]->path}}')"
             title="Woman holding a mug">
         </div>
         <div
@@ -17,25 +19,26 @@
                         <path
                             d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
                     </svg>
-                    Solo amigos
+                    {{ _($historia->privacidad) }}
                 </p>
                 <div class="text-gray-900 font-bold text-xl mb-2"> Titulo </div>
-                <p class="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus
-                    quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+                <p class="text-gray-700 text-base">{{ _($historia->contenido) }}</p>
             </div>
             <div class="flex items-center">
                 <img class="w-10 h-10 rounded-full mr-4"
                     src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=448&q=80"
                     alt="Avatar of Jonathan Reinink">
                 <div class="text-sm">
-                    <p class="text-gray-900 leading-none"> Autor </p>
-                    <p class="text-gray-600"> Fecha </p>
+                    <p class="text-gray-900 leading-none"> {{ _($historia->user->name) }} </p>
+                    <p class="text-gray-600"> {{ _($historia->created_at) }} </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@endforeach
+
 <button
     class="modal-open bg-transparent border border-gray-500 hover:border-indigo-500 text-gray-500 hover:text-indigo-500 font-bold py-2 px-4 rounded-full buttonBotAdd">
     <i class="fas fa-plus"></i>
@@ -60,7 +63,8 @@
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
         <div class="modal-content py-4 text-left px-6 bg-purple-600">
-            <form action="" method="POST" action="{{ route('HistoriaController@store') }}">
+            <form action="" method="POST" action="{{ action('HistoriaController@store') }}"
+                enctype="multipart/form-data">
                 @csrf
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">
@@ -76,7 +80,6 @@
                 </div>
 
                 <!--Body-->
-
                 <div class="flex items-center justify-center">
 
                     <div class="bg-purple-500 text-white font-bold rounded-lg border shadow-lg p-10 w-full">
@@ -85,13 +88,46 @@
                                 class="resize border rounded focus:outline-none focus:shadow-outline w-full"
                                 placeholder="Nueva Historia..."></textarea>
                         </div>
-                        <label for="file-upload">
-                            <i class="fas fa-paperclip"> </i>
-                        </label>
-                        <input id="file-upload" type="file" name="imagenes" accept=".pdf,.jpg,.png" multiple>
-                    </div>
-                </div>
+                        <div class="flex">
+                            <div class="w-full">
+                                <label for="files_name" class="flex">
+                                    <i class="fas fa-paperclip flex mt-1"> </i>
+                                    <p class="flex ml-4" id="files_label">No files selected</p>
+                                </label>
+                                <input id="files_name" type="file" name="imagenes[]" onchange="handleFilesUploaded()"
+                                    multiple>
+                            </div>
 
+                            <div class="w-full">
+                                <div class="flex right-0" style="direction: rtl">
+                                    <div class="relative">
+                                        <select
+                                            class="block appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                            id="grid-state" name="privacidad">
+                                            <option selected value="Publico">Publico</option>
+                                            <option value="Privado">Privado</option>
+                                        </select>
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="m-1">
+                                        <i class='fas fa-unlock'></i>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
                 <!--Footer-->
                 <div class="flex justify-end pt-2">
                     <button type="submit"
@@ -102,6 +138,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -142,7 +179,11 @@
       modal.classList.toggle('pointer-events-none')
       body.classList.toggle('modal-active')
     }
-    
+    function handleFilesUploaded(){
+        var filesCmp = document.getElementById("files_name");
+        var label = document.getElementById("files_label");
+        label.innerHTML = filesCmp.files.length.toString() + " Items selected";
+    }
      
 </script>
 

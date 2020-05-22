@@ -72365,3 +72365,22 @@ input[type="radio"]:checked ~ label {
     position: absolute;
     right: 20px;
 }
+
+
+.buttonBotAdd {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 40px;
+  right: 50px;
+}
+
+input[type="file"]{
+  display: none;
+}
+
+.fa-paperclip:hover {
+  color: white;
+  font-size: 120%;
+}
+

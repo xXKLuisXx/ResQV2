@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoriasTable extends Migration
+class CreateImagensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateHistoriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('historias', function (Blueprint $table) {
+        Schema::create('imagens', function (Blueprint $table) {
             $table->id();
-            $table->text('titulo')->nullable();
-            $table->text('contenido');
-            $table->text('privacidad');
-            $table->unsignedBigInteger('user_id');
-            $table->text('ratings')->nullable();
+            $table->text('nombre_imagen');
+            $table->text('path');
+            $table->text('extension');
+            $table->unsignedBigInteger('historia_id');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateHistoriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historias');
+        Schema::dropIfExists('imagens');
     }
 }

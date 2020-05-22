@@ -10,6 +10,7 @@
     <title>@yield('title')</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/all.js') }}" defer></script>
 
     <script src="{{ asset('js/loading-bar.min.js') }}" defer></script>
     <link rel="stylesheet" href="{{ asset('css/loading-bar.css') }}" >
@@ -19,7 +20,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
 </head>
 @yield('css')
 
