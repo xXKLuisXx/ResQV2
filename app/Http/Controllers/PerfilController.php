@@ -56,7 +56,8 @@ class PerfilController extends Controller
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
         $historis = "";
         $rating['total'] = 10;
-        $rating['calificacion'] = 8;
+        $rating['calificacion'] = 30 / $rating['total'];
+
         return view('perfil/perfilShow', compact('user', 'historis', 'rating', 'mi_perfil'));
     }
 

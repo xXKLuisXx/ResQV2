@@ -72325,3 +72325,43 @@ video {
     transition-delay: 1000ms;
   }
 }
+
+#evaluacion {
+  width: 250px;
+  margin: 0 auto;
+}
+
+#evaluacion p {
+  text-align: center;
+}
+
+#evaluacion label {
+  font-size: 20px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.clasificacion:not(.cancel) label:hover,
+.clasificacion:not(.cancel) label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+}
+
+.modulo_dinamico:hover .boton_dinamico{
+    position: absolute;
+    right: 20px;
+}

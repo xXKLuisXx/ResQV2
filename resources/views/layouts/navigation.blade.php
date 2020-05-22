@@ -11,6 +11,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <script src="{{ asset('js/loading-bar.min.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('css/loading-bar.css') }}" >
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -18,6 +21,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/css/main.css">
 </head>
+@yield('css')
 
 <body class="bg-gray-100">
     <nav class="bg-purple-900 flex flex-wrap items-center justify-between p-6 pb-4 pt-4">
@@ -82,6 +86,8 @@
     <main class="">
         @yield('content')
     </main>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    @yield('js')
 </body>
 
 </html>
