@@ -63,8 +63,7 @@
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
         <div class="modal-content py-4 text-left px-6 bg-purple-600">
-            <form action="" method="POST" action="{{ action('HistoriaController@store') }}"
-                enctype="multipart/form-data">
+            <form method="POST" action="{{ action('HistoriaController@store') }}" enctype="multipart/form-data">
                 @csrf
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">
@@ -149,15 +148,15 @@
     	toggleModal()
       })
     }
-    
+
     const overlay = document.querySelector('.modal-overlay')
     overlay.addEventListener('click', toggleModal)
-    
+
     var closemodal = document.querySelectorAll('.modal-close')
     for (var i = 0; i < closemodal.length; i++) {
       closemodal[i].addEventListener('click', toggleModal)
     }
-    
+
     document.onkeydown = function(evt) {
       evt = evt || window.event
       var isEscape = false
@@ -170,8 +169,8 @@
     	toggleModal()
       }
     };
-    
-    
+
+
     function toggleModal () {
       const body = document.querySelector('body')
       const modal = document.querySelector('.modal')
@@ -184,7 +183,7 @@
         var label = document.getElementById("files_label");
         label.innerHTML = filesCmp.files.length.toString() + " Items selected";
     }
-     
+
 </script>
 
 @stop

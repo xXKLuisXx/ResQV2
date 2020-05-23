@@ -3,7 +3,7 @@
 
 @if($mi_perfil)
 @section('menu')
-editr perfil
+<a href='' class="w-full border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm hover:text-white"><i class="fas fa-edit"></i></a>
 @endsection
 @endif
 
@@ -36,6 +36,7 @@ editr perfil
     <div class="bg-white hover:shadow-lg mt-5 p-4 rounded shadow w-8/12 w-8/12 bg-white" style="position: absolute; min-height: 109px;  margin-top: -10px; left: 50%; transform: translateX(-50%);">
         <h4 class="text-2xl text-purple-900">Acerca de mí</h4>
         <p class="text-justify text-purple-600 text-sm">{{$user->biografia}}</p>
+        <a href=""><i class="far fa-edit"></i></a>
     </div>
 </div>
 

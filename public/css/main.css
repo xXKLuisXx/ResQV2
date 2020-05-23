@@ -72384,3 +72384,39 @@ input[type="file"]{
   font-size: 120%;
 }
 
+.menu{
+    position: absolute;
+    right: 23px;
+    margin-top: 10px;
+    width: 48px;
+    visibility: hidden;
+    height: 0px;
+    overflow: hidden;
+    transition-property: height, visibility;
+    transition-duration: 900ms, 1000ms;
+    transition-delay: 3ms, 2ms;
+}
+
+.menu a{
+    margin-bottom: 4px;
+}
+
+.menu.activo {
+    visibility: visible;
+    height: 130px;
+}
+
+
+.notific:hover span{
+    color:white;
+}
+
+.notific span{
+    position: absolute;
+    margin-top: -10px;
+    margin-left: 0px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    overflow: hidden;
+}

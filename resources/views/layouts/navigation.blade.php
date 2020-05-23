@@ -45,18 +45,16 @@
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
                 @auth
-                    <a href="#responsive-header"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        Historias
+                    <a href="{{ url('navigation/')}}" class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white">
+                        <i class="fas fa-home"></i>
                     </a>
                     <a href="#responsive-header"
-                        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                        class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" style="display: none;">
                         Diario
                     </a>
                 @endauth
             </div>
             <div>
-                @yield('menu')
                 @guest
                     <a href="{{ route('login') }}" class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white">
                         {{ __('Iniciar sesión') }}
@@ -67,15 +65,25 @@
                     </a>
                     @endif
                 @else
-                <a href="#responsive-header"
-                    class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                    {{ Auth::user()->name }}
+                <a href='#notificcion' onclick="event.preventDefault();notificaciones();"
+                    class="notific block hover:text-pink-700 hover:text-white lg:inline-block lg:mt-0 mr-4 p-2 text-white">
+                    <i class="fas fa-bell"></i>
+                <span class="bg-pink-700 rounded-full text-xs">@if(@isset($n_not)){{ $n_not }} @else {{ 0 }}@endisset</span>
+                </a>
+                <a href="{{ url('perfil/'.Auth::user()->id) }}"
+                    class="block hover:text-pink-700 hover:text-white lg:inline-block lg:mt-0 mr-4 p-2 text-white">
+                    <i class="fas fa-user"></i>
                 </a>
 
-                <a class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white"
-                    href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();"> {{ __('Cerrar sesión') }}
+                <a class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white" onclick="event.preventDefault();menu();"><i class="fas fa-cog"></i>
                 </a>
+                <div id="menu" class="menu">
+                    @yield('menu')
+                    <a class="w-full border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm hover:text-white"
+                    href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
@@ -89,6 +97,15 @@
         @yield('content')
     </main>
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+  function menu() {
+    if (!document.getElementById("menu").classList.contains("activo")) {
+      document.getElementById("menu").classList.add("activo");
+    } else {
+      document.getElementById("menu").classList.remove("activo");
+    }
+  }
+</script>
     @yield('js')
 </body>
 
