@@ -19,20 +19,8 @@ class ComentarioController extends Controller
         //
         $historias = Historia::all();
         $historia = $historias->find($request->historia_id);
-        //echo $historia->contenido;
-        /*
-        foreach ($historia as $st){
-            echo $st->contenido;
-        }
-        */
-        $comentarios = $historia->imagenes();
-
-        echo $comentarios->path;
-        foreach ($comentarios as $comentario){
-            echo 1;
-        }
-        
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        $comentarios = json_encode($historia->comentarios);
+        return response()->json($comentarios);
 
 
     }
@@ -63,7 +51,8 @@ class ComentarioController extends Controller
         $comentario->historia_id = $request->historia_id;
         $comentario->user_id = $request->user_id;
         $comentario->save();
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        $json = json_encode($comentario);
+        return response()->json($json);
     }
 
     /**

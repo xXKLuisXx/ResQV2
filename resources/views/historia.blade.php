@@ -43,49 +43,18 @@ $ActualStory += 1;
             </div>
         </div>
         <div class="w-3/6 contentComments">
-            <div class="overflow-y-scroll h-full">
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 1</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 2</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 3</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 4</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 5</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 6</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 7</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 8</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 9</p>
-                </div>
-                <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
-                    <p>Comentario 10</p>
-                </div>
+            <div id="commentsSpace_{{$historia->id}}" class="overflow-y-scroll h-full">
             </div>
             <div class="w-full">
                 <form>
-                    @csrf
+                    <input type="hidden" name="token_{{$historia->id}}" value="{{csrf_token()}}">
                     <div class="flex">
                         <input
                             class="my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="comentario" type="text" placeholder="Comentario" name="comentario_name">
-                        <input type="hidden" name="id_story_name" value="{{$historia->id}}">
-                        <input type="hidden" name="id_user_name" value="{{ Auth::user()->id }}">
+                            type="text" placeholder="Comentario"
+                            id="comentario_id_{{$historia->id}}">
                         <div class="mx-2 text-xl self-center">
-                            <button class="AddComment"><i class="far fa-paper-plane"></i></button>
+                            <button class="AddComment" type="button" onclick="AddComment({{$historia->id}},{{Auth::user()->id}})"><i class="far fa-paper-plane"></i></button>
                         </div>
                     </div>
                 </form>
@@ -201,10 +170,13 @@ $ActualStory += 1;
 <script type="text/javascript">
     var coll = document.getElementsByClassName("contentComments");
     var i;
+    var json;
     function OpenCommentsBar(numberstory,historia_id){
         console.log(numberstory)
         if (coll[numberstory-1].style.display === "grid") {
             coll[numberstory-1].style.display = "none";
+            var elem = document.getElementById('commentsSpace_'+historia_id);
+            elem.innerHTML = "";
         } else {
             coll[numberstory-1].style.display = "grid";
             $.ajax({
@@ -212,7 +184,14 @@ $ActualStory += 1;
                 url:"{{ action('ComentarioController@index') }}",
                 data:{historia_id:historia_id},
                 success:function(data){
-                    alert(data.success);
+                    json = JSON.parse(data);
+                    var elem = document.getElementById('commentsSpace_'+historia_id);
+                    for (var i = 0; i < json.length; i++) {
+                        // Se ejecuta 5 veces, con valores desde paso desde 0 hasta 4.
+                        elem.innerHTML += '<div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2"><p>' + json[i].contenido +'</p></div>';
+                        //console.log(json[i]);
+                    };
+                    //alert(json[0]);
                 }
             });
         }
@@ -261,34 +240,27 @@ $ActualStory += 1;
         var label = document.getElementById("files_label");
         label.innerHTML = filesCmp.files.length.toString() + " Items selected";
     }
-
-    /*
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-   */
-    $(".AddComment").click(function(e){
-  
-        e.preventDefault();
-        console.log("Entra")
-   
-        var comentario_name = $("input[name=comentario_name]").val();
-        var id_story_name = $("input[name=id_story_name]").val();
-        var id_user_name = $("input[name=id_user_name]").val();
-        var token_name = $("input[name=_token]").val();
-
+    
+    function AddComment(historia_id_temp,user_id_temp){
+        var contenidoCmp = document.getElementById("comentario_id_"+historia_id_temp);
+        var contenido = contenidoCmp.value;
+        contenidoCmp.value = "";
+        //var contenido = $("input[name=comentario_name_"+historia_id_temp+"]").val();
+        var token = $("input[name=token_"+historia_id_temp+"]").val();
+        var user_id = user_id_temp;
+        var historia_id = historia_id_temp;
         $.ajax({
-           type:'POST',
-           url:"{{ action('ComentarioController@store') }}",
-           data:{comentario:comentario_name, historia_id:id_story_name, user_id:id_user_name, _token:token_name},
-           success:function(data){
-              alert(data.success);
-           }
+            type:'POST',
+            url:"{{ action('ComentarioController@store') }}",
+            data:{comentario:contenido, historia_id:historia_id, user_id:user_id, _token:token},
+            success:function(data){
+                json = JSON.parse(data);
+                var elem = document.getElementById('commentsSpace_'+historia_id);
+                elem.innerHTML += '<div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2"><p>' + json.contenido +'</p></div>';
+                //alert(data.success);
+            }
         });
-  
-	});
+    }
 </script>
 
 @stop
