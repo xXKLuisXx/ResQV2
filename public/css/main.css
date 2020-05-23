@@ -72420,3 +72420,17 @@ input[type="file"]{
     text-align: center;
     overflow: hidden;
 }
+
+#submenu{
+    transition-property: width, visibility;
+    transition-duration: 900ms, 1000ms;
+    transition-delay: 3ms, 2ms;
+    width: 0px;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#submenu.activo{
+    width: 100px;
+    visibility: visible;
+}

@@ -50,9 +50,9 @@ class PerfilController extends Controller
      * @param  \App\Perfil  $perfil
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::where('id', $id)->first();
+        //$user = User::where('id', $id)->first();
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
         $historis = "";
         $rating['total'] = 10;
@@ -69,7 +69,11 @@ class PerfilController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        if ($user->id == Auth::user()->id) {
+            return view('perfil/perfilEdit', compact('user'));
+        } else {
+            return view('layouts/error');
+        }
     }
 
     /**
@@ -81,7 +85,7 @@ class PerfilController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+
     }
 
     /**

@@ -75,7 +75,7 @@
                     <i class="fas fa-user"></i>
                 </a>
 
-                <a class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white" onclick="event.preventDefault();menu();"><i class="fas fa-cog"></i>
+                <a class="border border-white hover:bg-pink-700 hover:border-transparent hover:text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm text-white" onclick="event.preventDefault();desplegar('menu');"><i class="fas fa-cog"></i>
                 </a>
                 <div id="menu" class="menu">
                     @yield('menu')
@@ -98,11 +98,11 @@
     </main>
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
-  function menu() {
-    if (!document.getElementById("menu").classList.contains("activo")) {
-      document.getElementById("menu").classList.add("activo");
+  function desplegar(modulo) {
+    if (!document.getElementById(modulo).classList.contains("activo")) {
+      document.getElementById(modulo).classList.add("activo");
     } else {
-      document.getElementById("menu").classList.remove("activo");
+      document.getElementById(modulo).classList.remove("activo");
     }
   }
 </script>
