@@ -72384,3 +72384,21 @@ input[type="file"]{
   font-size: 120%;
 }
 
+.collapsibleComments {
+  color: white;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 25px;
+  color: indigo;
+}
+
+.activeComments, .collapsibleComments:hover {
+  color: #97266D;
+}
+
+.contentComments {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}

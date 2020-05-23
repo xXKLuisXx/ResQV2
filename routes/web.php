@@ -23,6 +23,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('historia', 'HistoriaController');
+Route::resource('comentario', 'ComentarioController');
 Route::get('/perfil/{id_user}', 'PerfilController@show')->name('perfil');
 
 Route::get('/navigation', 'HistoriaController@index')->name('navigation');

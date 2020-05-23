@@ -14,4 +14,8 @@ class Historia extends Model
     function user(){
         return $this->belongsTo(User::class);
     }
+
+    function comentarios(){
+        return $this->hasMany(Comentario::class);
+    }
 }
