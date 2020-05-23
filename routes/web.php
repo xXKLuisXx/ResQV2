@@ -23,6 +23,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('historia', 'HistoriaController');
-Route::get('/perfil/{id_user}', 'PerfilController@show')->name('perfil');
-
+Route::get('/perfil/{user}', 'PerfilController@show')->name('perfil');
+Route::get('/perfil/{user}/edit', 'PerfilController@edit')->name('editPerfil');
+Route::resource('perfil', 'PerfilController')->except('show','edit');
+/*
+Route::patch('/perfil/update', 'PerfilController@update')->name('updatePerfil');
+*/
 Route::get('/navigation', 'HistoriaController@index')->name('navigation');
