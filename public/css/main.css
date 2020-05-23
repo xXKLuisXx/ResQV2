@@ -72384,6 +72384,14 @@ input[type="file"]{
   font-size: 120%;
 }
 
+.collapsibleComments {
+  color: white;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 25px;
+  color: indigo;
+}
 .menu{
     position: absolute;
     right: 23px;
@@ -72395,6 +72403,16 @@ input[type="file"]{
     transition-property: height, visibility;
     transition-duration: 900ms, 1000ms;
     transition-delay: 3ms, 2ms;
+}
+
+.activeComments, .collapsibleComments:hover {
+  color: #97266D;
+}
+
+.contentComments {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
 }
 
 .menu a{

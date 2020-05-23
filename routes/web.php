@@ -30,3 +30,4 @@ Route::resource('perfil', 'PerfilController')->except('show','edit');
 Route::patch('/perfil/update', 'PerfilController@update')->name('updatePerfil');
 */
 Route::get('/navigation', 'HistoriaController@index')->name('navigation');
+Route::resource('comentario', 'ComentarioController');

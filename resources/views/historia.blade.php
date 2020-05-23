@@ -2,16 +2,20 @@
 @section('title', 'Inicio')
 @section('content')
 @parent
-
+@php
+$ActualStory=0;
+@endphp
 @foreach ($historias as $historia)
-<div class="container mx-auto">
-    <div class="max-w-sm w-full lg:max-w-full lg:flex">
+@php
+$ActualStory += 1;
+@endphp
+<div class="container mx-auto mt-10">
+    <div class="max-w-sm w-full lg:max-w-full lg:flex h-48">
         <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-            style="background-image: url('{{$historia->imagenes[0]->path}}')"
-            title="Woman holding a mug">
+            style="background-image: url('{{$historia->imagenes[0]->path}}')" title="Woman holding a mug">
         </div>
         <div
-            class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+            class="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div class="mb-8">
                 <p class="text-sm text-gray-600 flex items-center">
                     <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg"
@@ -28,10 +32,32 @@
                 <img class="w-10 h-10 rounded-full mr-4"
                     src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=448&q=80"
                     alt="Avatar of Jonathan Reinink">
-                <div class="text-sm">
+                <div class="text-sm w-1/6">
                     <p class="text-gray-900 leading-none"> {{ _($historia->user->name) }} </p>
                     <p class="text-gray-600"> {{ _($historia->created_at) }} </p>
                 </div>
+                <div class="w-full text-right">
+                    <button class="collapsibleComments" onclick="OpenCommentsBar({{$ActualStory}},{{$historia->id}})"><i
+                            class="fas fa-comments"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="w-3/6 contentComments">
+            <div id="commentsSpace_{{$historia->id}}" class="overflow-y-scroll h-full">
+            </div>
+            <div class="w-full">
+                <form>
+                    <input type="hidden" name="token_{{$historia->id}}" value="{{csrf_token()}}">
+                    <div class="flex">
+                        <input
+                            class="my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text" placeholder="Comentario"
+                            id="comentario_id_{{$historia->id}}">
+                        <div class="mx-2 text-xl self-center">
+                            <button class="AddComment" type="button" onclick="AddComment({{$historia->id}},{{Auth::user()->id}})"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -138,9 +164,38 @@
         </div>
     </div>
 </div>
-</div>
 
-<script>
+
+<script type="text/javascript">
+    var coll = document.getElementsByClassName("contentComments");
+    var i;
+    var json;
+    function OpenCommentsBar(numberstory,historia_id){
+        console.log(numberstory)
+        if (coll[numberstory-1].style.display === "grid") {
+            coll[numberstory-1].style.display = "none";
+            var elem = document.getElementById('commentsSpace_'+historia_id);
+            elem.innerHTML = "";
+        } else {
+            coll[numberstory-1].style.display = "grid";
+            $.ajax({
+                type:'GET',
+                url:"{{ action('ComentarioController@index') }}",
+                data:{historia_id:historia_id},
+                success:function(data){
+                    json = JSON.parse(data);
+                    var elem = document.getElementById('commentsSpace_'+historia_id);
+                    for (var i = 0; i < json.length; i++) {
+                        // Se ejecuta 5 veces, con valores desde paso desde 0 hasta 4.
+                        elem.innerHTML += '<div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2"><p>' + json[i].contenido +'</p></div>';
+                        //console.log(json[i]);
+                    };
+                    //alert(json[0]);
+                }
+            });
+        }
+    }
+    
     var openmodal = document.querySelectorAll('.modal-open')
     for (var i = 0; i < openmodal.length; i++) {
       openmodal[i].addEventListener('click', function(event){
@@ -178,12 +233,33 @@
       modal.classList.toggle('pointer-events-none')
       body.classList.toggle('modal-active')
     }
+
     function handleFilesUploaded(){
         var filesCmp = document.getElementById("files_name");
         var label = document.getElementById("files_label");
         label.innerHTML = filesCmp.files.length.toString() + " Items selected";
     }
-
+    
+    function AddComment(historia_id_temp,user_id_temp){
+        var contenidoCmp = document.getElementById("comentario_id_"+historia_id_temp);
+        var contenido = contenidoCmp.value;
+        contenidoCmp.value = "";
+        //var contenido = $("input[name=comentario_name_"+historia_id_temp+"]").val();
+        var token = $("input[name=token_"+historia_id_temp+"]").val();
+        var user_id = user_id_temp;
+        var historia_id = historia_id_temp;
+        $.ajax({
+            type:'POST',
+            url:"{{ action('ComentarioController@store') }}",
+            data:{comentario:contenido, historia_id:historia_id, user_id:user_id, _token:token},
+            success:function(data){
+                json = JSON.parse(data);
+                var elem = document.getElementById('commentsSpace_'+historia_id);
+                elem.innerHTML += '<div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2"><p>' + json.contenido +'</p></div>';
+                //alert(data.success);
+            }
+        });
+    }
 </script>
 
 @stop
