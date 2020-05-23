@@ -72387,7 +72387,7 @@ input[type="file"]{
 .menu{
     position: absolute;
     right: 23px;
-    margin-top: 10px;
+    margin-top: 0px;
     width: 48px;
     visibility: hidden;
     height: 0px;
@@ -72398,7 +72398,7 @@ input[type="file"]{
 }
 
 .menu a{
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 
 .menu.activo {
