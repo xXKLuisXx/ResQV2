@@ -47,9 +47,23 @@
     </div>
 </div>
 
+@php
+$ActualStory=0;
+@endphp
+<div class="float-left my-24 w-full">
+@foreach ($historias as $historia)
+@php
+    $ActualStory += 1;
+@endphp
+    @include('partial.historia')
+@endforeach
+</div>
+
+@include('partial.modalHistoria')
 @endsection
 
 @section('js')
+@include('partial.scriptsHistorias')
 <script>
     $(document).ready(function() {
         document.getElementById('radio'+Math.ceil({{ $rating['calificacion'] }})).checked = true;

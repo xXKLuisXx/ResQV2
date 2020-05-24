@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Perfil;
 use App\User;
 use Auth;
+use App\Historia;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
@@ -56,11 +57,11 @@ class PerfilController extends Controller
     {
         //$user = User::where('id', $id)->first();
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
-        $historis = "";
+        $historias = Historia::where('user_id', $user->id)->get();
         $rating['total'] = 10;
         $rating['calificacion'] = 30 / $rating['total'];
 
-        return view('perfil/perfilShow', compact('user', 'historis', 'rating', 'mi_perfil'));
+        return view('perfil/perfilShow', compact('user', 'historias', 'rating', 'mi_perfil'));
     }
 
     /**
@@ -104,11 +105,11 @@ class PerfilController extends Controller
         $user = User::where('id', Auth::user()->id)->first();
 
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
-        $historis = "";
+        $historias = Historia::where('user_id', $user->id )->get();
         $rating['total'] = 10;
         $rating['calificacion'] = 30 / $rating['total'];
 
-        return view('perfil/perfilShow', compact('user', 'historis', 'rating', 'mi_perfil'));
+        return view('perfil/perfilShow', compact('user', 'historias', 'rating', 'mi_perfil'));
     }
 
     /**

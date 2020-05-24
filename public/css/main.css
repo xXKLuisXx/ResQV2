@@ -72439,16 +72439,17 @@ input[type="file"]{
     overflow: hidden;
 }
 
-#submenu{
+#submenu, .submenu_lateral{
     transition-property: width, visibility;
     transition-duration: 900ms, 1000ms;
     transition-delay: 3ms, 2ms;
     width: 0px;
+    height: 32.25px;
     overflow: hidden;
     visibility: hidden;
 }
 
-#submenu.activo{
-    width: 100px;
+#submenu.activo, .submenu_lateral.activo{
+    width: 160px;
     visibility: visible;
 }
