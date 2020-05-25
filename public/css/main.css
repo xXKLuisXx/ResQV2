@@ -72453,3 +72453,15 @@ input[type="file"]{
     width: 160px;
     visibility: visible;
 }
+
+.perfil-min{
+    border: 1px solid #dcdcdc;
+}
+
+#user_despegable{
+
+}
+
+.perfil-min #user_despegable{
+
+}

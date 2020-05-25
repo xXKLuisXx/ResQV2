@@ -12,7 +12,7 @@
 </div>
 @endif
 
-<div class="bg-orange-500 bg-purple-900 float-left pb-10 pt-10 w-full">
+<div class="bg-purple-900 float-left pb-10 pt-10 w-full">
     {!! Form::model($user, ['route' => ['perfil.update', $user->id], 'method' => 'PATCH', 'enctype' => "multipart/form-data"]) !!}
     {!! Form::token() !!}
     <div class="w-full pb-10">
@@ -36,11 +36,10 @@
             </p>
         </div>
     </div>
-    <div class="bg-white hover:shadow-lg mt-5 p-4 rounded shadow w-8/12 w-8/12 bg-white" style="position: absolute; min-height: 109px;  margin-top: -10px; left: 50%; transform: translateX(-50%);">
+    <div class="bg-white hover:shadow-lg mb-20 mt-5 p-4 rounded shadow w-8/12" style="position: absolute; min-height: 109px;  margin-top: -10px; left: 50%; transform: translateX(-50%);">
         <h4 class="text-2xl text-purple-900"></h4>
         {!! Form::label('biografia', 'Acerca de mí', ['class' =>'block text-gray-700 text-xm font-bold mb-2']) !!}
         {!! Form::textarea('biografia', isset($user) ? $user->biografia : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'biografia']) !!}
-        <p class="text-justify text-purple-600 text-sm">{{$user->biografia}}</p>
     </div>
     <button type="submit" class="bg-blue-900 bottom-0 fixed hover:bg-pink-700 mb-5 mr-1 p-3 right-0 rounded-sm text-white">Guardar</button>
     {!! Form::close() !!}

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
 
 class HistoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,25 +44,36 @@ class HistoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'titulo' => 'required|min:5',
+            'contenido' => 'required|min:25',
+            'privacidad' => 'required',
+            'imagenes' => '',
+        ]);
+
         $historia = new Historia();
-        $historia->contenido = $request->historia;
+        $historia->contenido = $request->contenido;
+        $historia->titulo = $request->titulo;
         $historia->privacidad = $request->privacidad;
         $historia->user_id = \Auth::id();
         $historia->save();
-        foreach ($request->imagenes as $imagen){
-            $imagenDb = new Imagen();
-            $imagenDb->historia_id = $historia->id;
-            $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-            $imagenDb->extension = $imagen->extension();
-            $imagenDb->path = Storage::putFile('storage', $imagen);
-            $imagenDb->save();
-            //echo $path;
+
+        if ($request->imagenes != '') {
+            foreach ($request->imagenes as $imagen) {
+                $imagenDb = new Imagen();
+                $imagenDb->historia_id = $historia->id;
+                $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
+                $imagenDb->extension = $imagen->extension();
+                $imagenDb->path = Storage::putFile('storage', $imagen);
+                $imagenDb->save();
+                //echo $path;
+            }
         }
         //echo $request->file('imagenes');
         //$path = $request->imagenes->store('images');
         //echo $path;
         //Storage::putFile('images', new File('/path/to/photo')); echo $request->files;
-        
+
         dd($request);
     }
 
@@ -79,9 +94,10 @@ class HistoriaController extends Controller
      * @param  \App\Historia  $historia
      * @return \Illuminate\Http\Response
      */
-    public function edit(Historia $historia)
+    public function edit($id)/*Historia $historia)*/
     {
-        //
+        $historia = Historia::where('id', $id)->first();
+        return view('historia/historiaForm', compact('historia'));
     }
 
     /**
@@ -91,9 +107,30 @@ class HistoriaController extends Controller
      * @param  \App\Historia  $historia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Historia $historia)
+    public function update(Request $request, $id)/*Historia $historia)*/
     {
-        //
+        $request->validate([
+            'titulo' => 'required|min:5',
+            'contenido' => 'required|min:25',
+            'privacidad' => 'required',
+            'imagenes' => '',
+        ]);
+
+        $data = $request->except('imagenes', '_token', '_method');
+
+        if ($request->imagenes != '') {
+            foreach ($request->imagenes as $imagen) {
+                $imagenDb = new Imagen();
+                $imagenDb->historia_id = $id;
+                $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
+                $imagenDb->extension = $imagen->extension();
+                $imagenDb->path = Storage::putFile('storage', $imagen);
+                $imagenDb->save();
+            }
+        }
+
+        Historia::where('id', $id)->update($data);
+        return redirect()->route('historia.show', $id);
     }
 
     /**
@@ -104,6 +141,7 @@ class HistoriaController extends Controller
      */
     public function destroy(Historia $historia)
     {
-        //
+        $historia->delete();
+        return redirect()->route('historia.index');
     }
 }

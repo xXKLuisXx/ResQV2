@@ -17,17 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::get('/home', function () {
-//    return view('home');
-//});
+Route::get('/home', function () {
+    return view('welcome');
+});
+
 Auth::routes();
 
 Route::resource('historia', 'HistoriaController');
 Route::get('/perfil/{user}', 'PerfilController@show')->name('perfil');
 Route::get('/perfil/{user}/edit', 'PerfilController@edit')->name('editPerfil');
 Route::resource('perfil', 'PerfilController')->except('show','edit');
-/*
-Route::patch('/perfil/update', 'PerfilController@update')->name('updatePerfil');
-*/
 Route::get('/navigation', 'HistoriaController@index')->name('navigation');
 Route::resource('comentario', 'ComentarioController');
+
+Route::resource('imagen', 'ImagenController');

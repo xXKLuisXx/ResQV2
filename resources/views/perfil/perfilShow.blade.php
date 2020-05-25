@@ -40,7 +40,7 @@
         <a href="#submenu" class="absolute mr-3 mt-5 right-0 top-0" onclick="event.preventDefault(); desplegar('submenu');"><i class="fas fa-ellipsis-v"></i></a>
         <div id="submenu" class="absolute mr-8 mt-4 right-0 text-right top-0">
             <a class="border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 mt-4 px-4 py-2 rounded text-sm hover:text-white"
-                href="#edit_bio" onclick="event.preventDefault(); edit_bio();"><i class="far fa-edit"></i>
+                href="{{ url('perfil/'.$user->id.'/edit') }}"><i class="far fa-edit"></i>
             </a>
         </div>
         @endif

@@ -80,6 +80,7 @@ class ImagenController extends Controller
      */
     public function destroy(Imagen $imagen)
     {
-        //
+        $imagen->delete();
+        return redirect()->route('historia.edit', $imagen->historia_id );
     }
 }

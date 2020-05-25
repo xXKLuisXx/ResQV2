@@ -69,7 +69,7 @@
     function handleFilesUploaded(){
         var filesCmp = document.getElementById("files_name");
         var label = document.getElementById("files_label");
-        label.innerHTML = filesCmp.files.length.toString() + " Items selected";
+        label.innerHTML = filesCmp.files.length.toString() + " archivos seleccionados";
     }
 
     function AddComment(historia_id_temp,user_id_temp){
