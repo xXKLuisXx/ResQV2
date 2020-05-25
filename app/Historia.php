@@ -3,18 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Historia extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
-        'id', 
+        'id',
         'user_id',
         'titulo',
         'ratings',
         'contenido',
         'privacidad'
     ];
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $table = 'historias';
 

@@ -74,7 +74,8 @@ class HistoriaController extends Controller
         //echo $path;
         //Storage::putFile('images', new File('/path/to/photo')); echo $request->files;
 
-        dd($request);
+//        dd($request);
+        return redirect()->route('historia.index');
     }
 
     /**
@@ -83,9 +84,11 @@ class HistoriaController extends Controller
      * @param  \App\Historia  $historia
      * @return \Illuminate\Http\Response
      */
-    public function show(Historia $historia)
+    public function show($id)/*Historia $historia)*/
     {
-        //
+        $historia = Historia::where('id', $id)->first();
+
+        return view('historia/historiaShow', compact('historia'));
     }
 
     /**
@@ -139,8 +142,9 @@ class HistoriaController extends Controller
      * @param  \App\Historia  $historia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Historia $historia)
+    public function destroy($id)/*Historia $historia)*/
     {
+        $historia = Historia::where('id', $id)->first();
         $historia->delete();
         return redirect()->route('historia.index');
     }

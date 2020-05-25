@@ -20,6 +20,7 @@ class CreateHistoriasTable extends Migration
             $table->text('privacidad');
             $table->unsignedBigInteger('user_id');
             $table->text('ratings')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
