@@ -90,26 +90,19 @@ class PerfilController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255|min:10',
-            'perfil' => '',
+            'perfil' => 'mimes:png,jpg,gif',
             'biografia' => 'required|min:25',
         ]);
 
         $data = $request->except('perfil', '_token', '_method');
 
-        if ($request->perfil != null) {
+        if ($request->hasFile('perfil')) {
             $data['url_perfil'] = Storage::putFile('storage', $request->perfil);
         }
 
         User::where('id', Auth::user()->id)->update($data);
 
-        $user = User::where('id', Auth::user()->id)->first();
-
-        $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
-        $historias = Historia::where('user_id', $user->id )->get();
-        $rating['total'] = 10;
-        $rating['calificacion'] = 30 / $rating['total'];
-
-        return view('perfil/perfilShow', compact('user', 'historias', 'rating', 'mi_perfil'));
+        return redirect()->route('perfil', Auth::user()->id)->with('message', 'Perfil actualizado');
     }
 
     /**

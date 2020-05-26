@@ -16,13 +16,10 @@ class ComentarioController extends Controller
      */
     public function index(Request $request)
     {
-        //
         $historias = Historia::all();
         $historia = $historias->find($request->historia_id);
         $comentarios = json_encode($historia->comentarios);
         return response()->json($comentarios);
-
-
     }
 
     /**
