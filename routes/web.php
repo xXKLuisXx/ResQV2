@@ -17,13 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('verify', function () {
+    return view('auth.verify');
+    // Only verified users may enter...
+});
+
 //Route::get('/home', function () {
 //    return view('home');
 //});
 Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::resource('historia', 'HistoriaController');
-Route::resource('comentario', 'ComentarioController');
-Route::get('/perfil/{id_user}', 'PerfilController@show')->name('perfil');
-
+Route::resource('historia', 'HistoriaController')->middleware('auth','isverified');
+Route::resource('comentario', 'ComentarioController')->middleware('auth','isverified');
+Route::get('/perfil/{id_user}', 'PerfilController@show')->name('perfil')->middleware('auth','isverified');
+Route::get('/verificationEmail/{api_token?}{user_id?}', 'Auth\VerificationController@verification')->middleware('auth');
 Route::get('/navigation', 'HistoriaController@index')->name('navigation');

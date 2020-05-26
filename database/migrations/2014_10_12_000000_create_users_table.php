@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('activo')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('api_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

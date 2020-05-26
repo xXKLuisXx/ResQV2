@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class VerificationController extends Controller
 {
@@ -26,8 +31,8 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/historia';
     /**
      * Create a new controller instance.
      *
@@ -38,5 +43,26 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    public function verification(Request $request){
+        //echo "Request".$request->input('user_id');
+        //echo "id: ".\Auth::id();
+        if ($request->user_id == \Auth::id()) {
+            //echo "Entra auth";
+            $user = User::find($request->input('user_id'));
+            //echo "user api_token: ".$user->api_token;
+            if (hash('sha256', $request->input('api_token')) == $user->api_token){
+                $user->email_verified_at = Carbon::now();
+                $user->save();
+                //echo "Entra verified";
+            }
+        } else {
+
+        }
+        return view('/historia');
+        //echo "Hola";
+        
+        //hash('sha256', $request->api_token);
     }
 }

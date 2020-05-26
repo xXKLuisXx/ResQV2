@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
+use App\Mail\VerificationMail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -65,14 +68,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $token = Str::random(60);
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'activo' => 1,
             'password' => Hash::make($data['password']),
+            'api_token' => hash('sha256', $token),
         ]);
 
         $user->roles()->attach(Role::where('name', 'user')->first());
+
+        $enlace = "http://127.0.0.1:8000/verificationEmail?api_token=".$token."&user_id=".$user->id;
+        Mail::to($user)->send(new VerificationMail($enlace));
 
         return $user;
     }
