@@ -68,7 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $token = Str::random(60);
+        $token = hash('sha256', $data['email']); //Str::random(60);
 
         $user = User::create([
             'name' => $data['name'],

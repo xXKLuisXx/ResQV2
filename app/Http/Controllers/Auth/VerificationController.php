@@ -7,9 +7,11 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use App\Mail\VerificationMail;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class VerificationController extends Controller
 {
@@ -46,23 +48,26 @@ class VerificationController extends Controller
     }
 
     public function verification(Request $request){
-        //echo "Request".$request->input('user_id');
-        //echo "id: ".\Auth::id();
         if ($request->user_id == \Auth::id()) {
-            //echo "Entra auth";
             $user = User::find($request->input('user_id'));
-            //echo "user api_token: ".$user->api_token;
             if (hash('sha256', $request->input('api_token')) == $user->api_token){
                 $user->email_verified_at = Carbon::now();
                 $user->save();
-                //echo "Entra verified";
             }
         } else {
 
         }
-        return view('/historia');
-        //echo "Hola";
-        
-        //hash('sha256', $request->api_token);
+        return redirect('/historia');
+    }
+    public function resent(Request $request){
+        if ($request->user_id == \Auth::id()) {
+            $user = User::find($request->input('user_id'));
+            $enlace = "http://127.0.0.1:8000/verificationEmail?api_token=".hash('sha256', $user->email)."&user_id=".$user->id;
+            Mail::to($user)->send(new VerificationMail($enlace));
+        } else {
+
+        }
+        return view('auth.verify');
+
     }
 }

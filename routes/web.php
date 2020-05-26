@@ -28,8 +28,10 @@ Route::get('verify', function () {
 Auth::routes();
 Auth::routes(['verify' => true]);
 
-Route::resource('historia', 'HistoriaController')->middleware('auth','isverified');
-Route::resource('comentario', 'ComentarioController')->middleware('auth','isverified');
-Route::get('/perfil/{id_user}', 'PerfilController@show')->name('perfil')->middleware('auth','isverified');
-Route::get('/verificationEmail/{api_token?}{user_id?}', 'Auth\VerificationController@verification')->middleware('auth');
-Route::get('/navigation', 'HistoriaController@index')->name('navigation');
+Route::resource('historia', 'HistoriaController')->shallow()->middleware(['auth','isverified']);
+
+Route::resource('comentario', 'ComentarioController')->middleware(['auth','isverified']);
+Route::get('perfil/{id_user}', 'PerfilController@show')->name('perfil')->middleware(['auth','isverified']);
+Route::get('verificationEmail/{api_token?}{user_id?}', 'Auth\VerificationController@verification')->middleware('auth');
+Route::post('verificationEmail', 'Auth\VerificationController@resent')->middleware('auth');
+Route::get('navigation', 'HistoriaController@index')->name('navigation')->middleware(['auth','isverified']);
