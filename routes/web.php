@@ -21,13 +21,25 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('verify', function () {
+    return view('auth.verify');
+    // Only verified users may enter...
+});
 
-Route::resource('historia', 'HistoriaController');
-Route::get('/perfil/{user}', 'PerfilController@show')->name('perfil');
-Route::get('/perfil/{user}/edit', 'PerfilController@edit')->name('editPerfil');
-Route::resource('perfil', 'PerfilController')->except('show','edit');
-Route::get('/navigation', 'HistoriaController@index')->name('navigation');
-Route::resource('comentario', 'ComentarioController');
+//Route::get('/home', function () {
+//    return view('home');
+//});
+Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::resource('historia', 'HistoriaController')->shallow()->middleware(['auth','isverified']);
+Route::get('/perfil/{user}/edit', 'PerfilController@edit')->name('editPerfil')->middleware(['auth','isverified']);
+Route::resource('perfil', 'PerfilController')->except('show','edit')->middleware(['auth','isverified']);
 
 Route::resource('imagen', 'ImagenController');
+
+Route::resource('comentario', 'ComentarioController')->middleware(['auth','isverified']);
+Route::get('perfil/{id_user}', 'PerfilController@show')->name('perfil')->middleware(['auth','isverified']);
+Route::get('verificationEmail/{api_token?}{user_id?}', 'Auth\VerificationController@verification')->middleware('auth');
+Route::post('verificationEmail', 'Auth\VerificationController@resent')->middleware('auth');
+Route::get('navigation', 'HistoriaController@index')->name('navigation')->middleware(['auth','isverified']);
