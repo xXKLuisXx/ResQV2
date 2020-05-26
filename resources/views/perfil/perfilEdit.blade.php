@@ -2,15 +2,6 @@
 @section('title', 'Editar Perfil')
 
 @section('content')
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
 
 <div class="bg-purple-900 float-left pb-10 pt-10 w-full">
     {!! Form::model($user, ['route' => ['perfil.update', $user->id], 'method' => 'PATCH', 'enctype' => "multipart/form-data"]) !!}
@@ -28,10 +19,10 @@
             <p class="pt-3 text-black text-center text-white uppercase">
                 <div class="flex flex-wrap -mx-3 mb-6">
                     {!! Form::label('name', 'Nombre usuario', ['class' =>'block text-white text-xm font-bold mb-2']) !!}
-                    {!! Form::text('name', isset($user) ? $user->name : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'name']) !!}
+                    {!! Form::text('name', isset($user) ? $user->name : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'name', 'required']) !!}
 
                     <!--{!! Form::label('apodo', 'Pseudonombre', ['class' =>'block text-gray-700 text-xm font-bold mb-2']) !!}
-                    {!! Form::text('apodo', isset($user) ? $user->apodo : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'apodo']) !!}-->
+                    {!! Form::text('apodo', isset($user) ? $user->apodo : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'apodo', 'required']) !!}-->
                 </div>
             </p>
         </div>
@@ -39,7 +30,7 @@
     <div class="bg-white hover:shadow-lg mb-20 mt-5 p-4 rounded shadow w-8/12" style="position: absolute; min-height: 109px;  margin-top: -10px; left: 50%; transform: translateX(-50%);">
         <h4 class="text-2xl text-purple-900"></h4>
         {!! Form::label('biografia', 'Acerca de mí', ['class' =>'block text-gray-700 text-xm font-bold mb-2']) !!}
-        {!! Form::textarea('biografia', isset($user) ? $user->biografia : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'biografia']) !!}
+        {!! Form::textarea('biografia', isset($user) ? $user->biografia : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'id' => 'biografia', 'required']) !!}
     </div>
     <button type="submit" class="bg-blue-900 bottom-0 fixed hover:bg-pink-700 mb-5 mr-1 p-3 right-0 rounded-sm text-white">Guardar</button>
     {!! Form::close() !!}

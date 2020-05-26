@@ -81,6 +81,6 @@ class ImagenController extends Controller
     public function destroy(Imagen $imagen)
     {
         $imagen->delete();
-        return redirect()->route('historia.edit', $imagen->historia_id );
+        return redirect()->route('historia.edit', $imagen->historia_id )->with('message', 'Imagen eliminada');
     }
 }

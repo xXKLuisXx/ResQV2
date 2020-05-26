@@ -6,14 +6,17 @@
         <div id="submenu_{{ $historia->id }}" class="absolute mr-4 mr-8 mt-2 right-0 submenu_lateral text-right top-0">
             @if($historia->user->id == Auth::user()->id)
             <a class="border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 px-4 py-2 rounded text-sm hover:text-white"
-                href="#edit_hist" onclick="event.preventDefault();"><i class="far fa-edit"></i>
+            href="{{ route('historia.edit', $historia->id) }}"><i class="far fa-edit"></i>
             </a>
-            <a class="border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 px-4 py-2 rounded text-sm hover:text-white"
-                href="#remove_hist" onclick="event.preventDefault();"><i class="fas fa-trash-alt"></i>
-            </a>
+            <form action="{{ route('historia.destroy', $historia->id) }}" method="POST" class="inline-block">
+                @csrf
+                @method('DELETE')
+            <button class="border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 px-4 py-2 rounded text-sm hover:text-white"><i class="fas fa-trash-alt"></i>
+            </button>
+        </form>
             @endif
             <a class="border hover:border-white bg-pink-700 border-transparent text-white inline-block leading-none lg:mt-0 px-4 py-2 rounded text-sm hover:text-white"
-                href="#ver_hist" onclick="event.preventDefault();"><i class="far fa-eye"></i>
+            href="{{ url('historia/'.$historia->id) }}"><i class="far fa-eye"></i>
             </a>
         </div>
         <div class="relative hidden md:hidden lg:block sm:hidden h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"

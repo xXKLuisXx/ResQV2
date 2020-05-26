@@ -22,7 +22,7 @@ class HistoriaController extends Controller
     public function index()
     {
         //
-        $historias = Historia::all();
+        $historias = Historia::with(['imagenes', 'user', 'comentarios'])->get();
         return view('/historia', \compact('historias'));
     }
 
@@ -33,7 +33,7 @@ class HistoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('historia/historiaForm');
     }
 
     /**
@@ -74,7 +74,7 @@ class HistoriaController extends Controller
         //echo $path;
         //Storage::putFile('images', new File('/path/to/photo')); echo $request->files;
 
-        dd($request);
+        return redirect()->route('historia.index')->with('message', 'Historia agregada');
     }
 
     /**
@@ -83,9 +83,11 @@ class HistoriaController extends Controller
      * @param  \App\Historia  $historia
      * @return \Illuminate\Http\Response
      */
-    public function show(Historia $historia)
+    public function show($id)/*Historia $historia)*/
     {
-        //
+        $historia = Historia::where('id', $id)->first();
+
+        return view('historia/historiaShow', compact('historia'));
     }
 
     /**
@@ -130,7 +132,7 @@ class HistoriaController extends Controller
         }
 
         Historia::where('id', $id)->update($data);
-        return redirect()->route('historia.show', $id);
+        return redirect()->route('historia.show', $id)->with('message', 'Historia actualizada');;
     }
 
     /**
@@ -139,9 +141,10 @@ class HistoriaController extends Controller
      * @param  \App\Historia  $historia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Historia $historia)
+    public function destroy($id)/*Historia $historia)*/
     {
+        $historia = Historia::where('id', $id)->first();
         $historia->delete();
-        return redirect()->route('historia.index');
+        return redirect()->route('historia.index')->with('message', 'Historia eliminada');
     }
 }
