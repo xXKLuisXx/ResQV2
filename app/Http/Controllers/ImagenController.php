@@ -83,6 +83,12 @@ class ImagenController extends Controller
     {
         Storage::delete([$imagen->path]);
         $imagen->delete();
-        return redirect()->route('historia.edit', $imagen->historia_id )->with('message', 'Imagen eliminada');
+        if ($imagen->user != null){
+            return redirect()->route('perfil.edit', $imagen->user->id )->with('message', 'Imagen eliminada');
+        }else {
+            if($imagen->historia != null){
+                return redirect()->route('historia.edit', $imagen->historia->id )->with('message', 'Imagen eliminada');
+            }
+        }
     }
 }

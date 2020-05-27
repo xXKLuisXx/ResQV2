@@ -83,6 +83,10 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    public function imagen(){
+        return $this->morphOne(Imagen::class, 'imagenable');
+    }
+
     function comentarios(){
         return $this->hasMany(Comentario::class);
     }

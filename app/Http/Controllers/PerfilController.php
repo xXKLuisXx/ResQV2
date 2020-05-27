@@ -90,18 +90,29 @@ class PerfilController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255|min:10',
-            'perfil' => 'mimes:png,jpg,gif',
+            'perfil' => 'mimes:png,jpg,gif,jpeg,JPG',
             'biografia' => 'required|min:25',
         ]);
 
         $data = $request->except('perfil', '_token', '_method');
 
         if ($request->hasFile('perfil')) {
-            $data['url_perfil'] = Storage::putFile('storage', $request->perfil);
-
-            if(Auth::user()->url_perfil != ''){
-                Storage::delete([Auth::user()->url_perfil]);
+            $user = User::find(Auth::user()->id);
+            if($user->imagen != null){
+                $imagen = $user->imagen;
+                $imagen->nombre_imagen = $request->perfil->getClientOriginalName();
+                $imagen->extension =  $request->perfil->extension();
+                $imagen->path = Storage::putFile('storage', $request->perfil);
+                $imagen->save();
+            }else{
+                $user->imagen()->create([
+                    'nombre_imagen' => $request->perfil->getClientOriginalName(),
+                    'extension' => $request->perfil->extension(),
+                    'path' => Storage::putFile('storage', $request->perfil),
+                ]);
             }
+
+            //$data['url_perfil'] = Storage::putFile('storage', $request->perfil);
         }
 
         User::where('id', Auth::user()->id)->update($data);

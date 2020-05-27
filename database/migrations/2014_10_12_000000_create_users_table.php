@@ -17,7 +17,9 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('biografia')->nullable();
-            $table->string('url_perfil')->nullable();
+            //$table->string('url_perfil')->nullable();
+            //$table->unsignedBigIncrement('imagenable_id')->nullable();
+            //$table->string('imagenable_type')->nullable();
             $table->string('email')->unique();
             $table->integer('activo')->default(1);
             $table->timestamp('email_verified_at')->nullable();
