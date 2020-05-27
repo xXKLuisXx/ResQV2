@@ -60,12 +60,17 @@ class HistoriaController extends Controller
 
         if ($request->imagenes != '') {
             foreach ($request->imagenes as $imagen) {
-                $imagenDb = new Imagen();
-                $imagenDb->historia_id = $historia->id;
-                $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-                $imagenDb->extension = $imagen->extension();
-                $imagenDb->path = Storage::putFile('storage', $imagen);
-                $imagenDb->save();
+                $historia->imagenes()->create([
+                    'nombre_imagen' => $imagen->getClientOriginalName(),
+                    'extension' => $imagen->extension(),
+                    'path' => Storage::putFile('storage', $imagen),
+                ]);
+                //$imagenDb = new Imagen();
+                //$imagenDb->historia_id = $historia->id;
+                //$imagenDb->nombre_imagen = $imagen->getClientOriginalName();
+                //$imagenDb->extension = $imagen->extension();
+                //$imagenDb->path = Storage::putFile('storage', $imagen);
+                //$imagenDb->save();
                 //echo $path;
             }
         }

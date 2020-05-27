@@ -18,7 +18,8 @@ class CreateImagensTable extends Migration
             $table->text('nombre_imagen');
             $table->text('path');
             $table->text('extension');
-            $table->unsignedBigInteger('historia_id');
+            $table->unsignedBigInteger('imagenable_id');
+            $table->string('imagenable_type');
             $table->timestamps();
         });
     }

@@ -82,4 +82,8 @@ class User extends Authenticatable
             ->belongsToMany('App\Evaluacion')
             ->withTimestamps();
     }
+
+    public function imagen(){
+        return $this->morphOne(Imagen::class, 'imagenable');
+    }
 }

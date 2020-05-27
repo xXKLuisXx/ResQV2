@@ -15,14 +15,14 @@ class Historia extends Model
         'titulo',
         'ratings',
         'contenido',
-        'privacidad'
+        'privacidad',
     ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $table = 'historias';
 
     function imagenes(){
-        return $this->hasMany(Imagen::class);
+        return $this->morphMany(Imagen::class, 'imagenable');
     }
 
     function user(){
