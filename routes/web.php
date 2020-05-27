@@ -30,13 +30,11 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 
 Route::resource('historia', 'HistoriaController')->shallow()->middleware(['auth','isverified']);
+Route::resource('evaluacion', 'EvaluacionController')->shallow()->middleware(['auth','isverified']);
 Route::resource('perfil', 'PerfilController')->except('show','edit')->middleware(['auth','isverified']);
 Route::get('perfil/{user}', 'PerfilController@show')->name('perfil')->middleware(['auth','isverified']);
 Route::get('/perfil/{user}/edit', 'PerfilController@edit')->name('editPerfil')->middleware(['auth','isverified']);
-
-
 Route::resource('imagen', 'ImagenController');
-
 Route::resource('comentario', 'ComentarioController')->middleware(['auth','isverified']);
 Route::get('verificationEmail/{api_token?}{user_id?}', 'Auth\VerificationController@verification')->middleware('auth');
 Route::post('verificationEmail', 'Auth\VerificationController@resent')->middleware('auth');

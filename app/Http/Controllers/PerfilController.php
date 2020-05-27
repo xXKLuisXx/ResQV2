@@ -98,6 +98,10 @@ class PerfilController extends Controller
 
         if ($request->hasFile('perfil')) {
             $data['url_perfil'] = Storage::putFile('storage', $request->perfil);
+
+            if(Auth::user()->url_perfil != ''){
+                Storage::delete([Auth::user()->url_perfil]);
+            }
         }
 
         User::where('id', Auth::user()->id)->update($data);

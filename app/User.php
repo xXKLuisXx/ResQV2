@@ -82,4 +82,8 @@ class User extends Authenticatable
             ->belongsToMany('App\Evaluacion')
             ->withTimestamps();
     }
+
+    function comentarios(){
+        return $this->hasMany(Comentario::class);
+    }
 }

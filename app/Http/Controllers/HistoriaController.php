@@ -21,7 +21,6 @@ class HistoriaController extends Controller
      */
     public function index()
     {
-        //
         $historias = Historia::with(['imagenes', 'user', 'comentarios'])->get();
         return view('/historia', \compact('historias'));
     }
@@ -86,7 +85,6 @@ class HistoriaController extends Controller
     public function show($id)/*Historia $historia)*/
     {
         $historia = Historia::where('id', $id)->first();
-
         return view('historia/historiaShow', compact('historia'));
     }
 

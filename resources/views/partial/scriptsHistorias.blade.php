@@ -72,7 +72,7 @@
         label.innerHTML = filesCmp.files.length.toString() + " archivos seleccionados";
     }
 
-    function AddComment(historia_id_temp,user_id_temp){
+    function AddComment(historia_id_temp,user_id_temp,tipo = ""){
         var contenidoCmp = document.getElementById("comentario_id_"+historia_id_temp);
         var contenido = contenidoCmp.value;
         contenidoCmp.value = "";
@@ -86,8 +86,13 @@
             data:{comentario:contenido, historia_id:historia_id, user_id:user_id, _token:token},
             success:function(data){
                 json = JSON.parse(data);
+                if(tipo==""){
                 var elem = document.getElementById('commentsSpace_'+historia_id);
                 elem.innerHTML += '<div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2"><p>' + json.contenido +'</p></div>';
+            } else {
+                var elem = document.getElementById('commentsSpace');
+                elem.innerHTML += '<div class="w-full my-2" id="coment_'+json.id+ ' "><img src="{{url(Auth::user()->url_perfil)}}" class="border border-purple-500 flex float-right h-8 ml-1 mr-2 mt-1 rounded-full w-8"><p class="bg-white border pl-3 py-2 rounded-l-lg rounded-r-lg text-gray-600">'+json.contenido+'</p></div>';
+            }
                 //alert(data.success);
             }
         });
