@@ -15,10 +15,9 @@ class CreateEvaluacionsTable extends Migration
     {
         Schema::create('evaluacions', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id_evaluado')->unsigned();
-            $table->integer('user_id_evaluador')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('comentario_id')->unsigned();
             $table->integer('calificacion');
-            $table->string('comentarios')->nullable();
             $table->timestamps();
         });
     }

@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Evaluacion extends Model
 {
-    public function users()
+    public function user()
     {
-        return $this
-            ->belongsToMany('App\User')
-            ->withTimestamps();
+        return $this->belongsTo('App\User');
+    }
+
+    function comentario(){
+        return $this->belongsTo(Comentario::class);
     }
 }

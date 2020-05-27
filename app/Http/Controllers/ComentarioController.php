@@ -40,7 +40,6 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $input = $request->all();
         \Log::info($input);
         $comentario = new Comentario();
@@ -95,5 +94,12 @@ class ComentarioController extends Controller
     public function destroy(Comentario $comentario)
     {
         //
+    }
+
+    public function user()
+    {
+        return $this
+            ->belongsToMany('App\User')
+            ->withTimestamps();
     }
 }

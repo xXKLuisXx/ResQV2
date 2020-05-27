@@ -47,7 +47,7 @@ href="{{ route('historia.edit', $historia->id) }}"><i class="far fa-edit"></i>
         <h4 class="text-2xl text-purple-900"></h4>
         {!! Form::label('contenido', 'Contenido', ['class' =>'block text-gray-700 text-xm font-bold mb-2']) !!}
         <p class="appearance-none w-full py-2 px-3 text-gray-700 leading-tight"> {{ $historia->contenido }} </p>
-        <div class="w-full bg-gray-300 hover:shadow-md mb-10 mt-10 my-5 overflow-auto px-5 py-6 shadow" style="position: absolute; min-height: 109px; left: 50%; transform: translateX(-50%);">
+        <div class="w-full bg-gray-300 hover:shadow-md mb-10 mt-10 my-5 overflow-auto px-5 py-6 shadow">
             <p class="block text-gray-700 text-xm font-bold mb-2">Anexos</p>
         @foreach ($historia->imagenes as $imagenes)
         <div style="height: 300px; max-height: 300px;" class="border border-transparent float-left hover:border-gray-800 rounded">
@@ -55,11 +55,75 @@ href="{{ route('historia.edit', $historia->id) }}"><i class="far fa-edit"></i>
         </div>
         @endforeach
         </div>
+        <div class="bg-gray-300 hover:shadow-md mb-10 mt-10 my-5 overflow-auto px-5 py-6 rounded shadow w-full" style="position: absolute; min-height: 109px; left: 50%; transform: translateX(-50%);">
+            <p class="block text-gray-700 text-xm font-bold mb-2">Comentarios</p>
+            <div id="commentsSpace">
+        @foreach ($historia->comentarios as $comentario)
+        @php
+        $evaluo = false;
+        @endphp
+        @foreach ($comentario->evaluaciones as $evaluacion)
+        @if($evaluacion->user_id==Auth::user()->id)
+        @php
+        $evaluo = true;
+        @endphp
+        @endif
+        @endforeach
+        <div class="w-full my-2" id="coment_{{$comentario->id}}">
+            <img src="{{url($comentario->user->url_perfil)}}" class="border border-purple-500 flex float-right h-8 ml-1 mr-2 mt-1 rounded-full w-8">
+            <form id="evaluacion" class="flex float-right pl-2 pr-2 pt-1" style="width: auto;">
+                <input type="hidden" name="token_{{$comentario->id}}" value="{{csrf_token()}}">
+                <p class="clasificacion @if($evaluo || $comentario->user->id == Auth::user()->id) cancel invisible @endif" >
+                    <input id="radio5_{{$comentario->id}}" type="radio" name="estrellas_{{$comentario->id}}" value="5"  onclick="evaluar(this, {{$comentario->id}})" @if($evaluo) disabled @endif>
+                    <label for="radio5_{{$comentario->id}}">★</label>
+                    <input id="radio4_{{$comentario->id}}" type="radio" name="estrellas_{{$comentario->id}}" value="4"  onclick="evaluar(this, {{$comentario->id}})" @if($evaluo) disabled @endif>
+                    <label for="radio4_{{$comentario->id}}">★</label>
+                    <input id="radio3_{{$comentario->id}}" type="radio" name="estrellas_{{$comentario->id}}" value="3"  onclick="evaluar(this, {{$comentario->id}})" @if($evaluo) disabled @endif>
+                    <label for="radio3_{{$comentario->id}}">★</label>
+                    <input id="radio2_{{$comentario->id}}" type="radio" name="estrellas_{{$comentario->id}}" value="2"  onclick="evaluar(this, {{$comentario->id}})" @if($evaluo) disabled @endif>
+                    <label for="radio2_{{$comentario->id}}">★</label>
+                    <input id="radio1_{{$comentario->id}}" type="radio" name="estrellas_{{$comentario->id}}" value="1"  onclick="evaluar(this, {{$comentario->id}})" @if($evaluo) disabled @endif>
+                    <label for="radio1_{{$comentario->id}}">★</label>
+                </p>
+            </form>
+        <p class="bg-white border pl-3 py-2 rounded-l-lg rounded-r-lg text-gray-600">{{$comentario->contenido}}</p>
+        </div>
+        @endforeach
+    </div>
+        <div class="w-full">
+            <form>
+                <input type="hidden" name="token_{{$historia->id}}" value="{{csrf_token()}}">
+                <div class="flex">
+                    <input
+                        class="my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text" placeholder="Comentario"
+                        id="comentario_id_{{$historia->id}}">
+                    <div class="mx-2 text-xl self-center">
+                        <button class="AddComment" type="button" onclick="AddComment({{$historia->id}},{{Auth::user()->id}}, 'g')"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 @endsection
 
 @section('js')
 @include('partial/scriptsHistorias')
+<script>
+    function evaluar(radio, id_com) {
+        var calificacion = radio.value;
+        var token = $("input[name=token_"+id_com+"]").val();
+        var comentario_id = id_com;
+        $.ajax({
+            type:'POST',
+            url:"{{ action('EvaluacionController@store') }}",
+            data:{calificacion:calificacion, comentario_id:comentario_id, _token:token},
+            success:function(data){
+                json = JSON.parse(data);
+                // mensje exito
+            }
+        });
+    }
+</script>
 @endsection

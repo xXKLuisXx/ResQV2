@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Imagen;
+use App\Evaluacion;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
-class ImagenController extends Controller
+class EvaluacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,16 +36,23 @@ class ImagenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $evaluacion = new Evaluacion();
+        $evaluacion->calificacion = $request->calificacion;
+        $evaluacion->comentario_id = $request->comentario_id;
+        $evaluacion->user_id = Auth::user()->id;
+        $evaluacion->save();
+        $json = json_encode($evaluacion);
+        return response()->json($json);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Imagen  $imagen
+     * @param  \App\Evaluacion  $evaluacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Imagen $imagen)
+    public function show(Evaluacion $evaluacion)
     {
         //
     }
@@ -53,10 +60,10 @@ class ImagenController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Imagen  $imagen
+     * @param  \App\Evaluacion  $evaluacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Imagen $imagen)
+    public function edit(Evaluacion $evaluacion)
     {
         //
     }
@@ -65,10 +72,10 @@ class ImagenController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Imagen  $imagen
+     * @param  \App\Evaluacion  $evaluacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Imagen $imagen)
+    public function update(Request $request, Evaluacion $evaluacion)
     {
         //
     }
@@ -76,13 +83,11 @@ class ImagenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Imagen  $imagen
+     * @param  \App\Evaluacion  $evaluacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Imagen $imagen)
+    public function destroy(Evaluacion $evaluacion)
     {
-        Storage::delete([$imagen->path]);
-        $imagen->delete();
-        return redirect()->route('historia.edit', $imagen->historia_id )->with('message', 'Imagen eliminada');
+        //
     }
 }
