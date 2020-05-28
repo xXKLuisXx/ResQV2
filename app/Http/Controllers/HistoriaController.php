@@ -64,19 +64,8 @@ class HistoriaController extends Controller
                     'extension' => $imagen->extension(),
                     'path' => Storage::putFile('storage', $imagen),
                 ]);
-                //$imagenDb = new Imagen();
-                //$imagenDb->historia_id = $historia->id;
-                //$imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-                //$imagenDb->extension = $imagen->extension();
-                //$imagenDb->path = Storage::putFile('storage', $imagen);
-                //$imagenDb->save();
-                //echo $path;
             }
         }
-        //echo $request->file('imagenes');
-        //$path = $request->imagenes->store('images');
-        //echo $path;
-        //Storage::putFile('images', new File('/path/to/photo')); echo $request->files;
 
         return redirect()->route('historia.index')->with('message', 'Historia agregada');
     }
@@ -132,12 +121,6 @@ class HistoriaController extends Controller
                     'extension' => $imagen->extension(),
                     'path' => Storage::putFile('storage', $imagen),
                 ]);
-                //$imagenDb = new Imagen();
-                //$imagenDb->historia_id = $id;
-                //$imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-                //$imagenDb->extension = $imagen->extension();
-                //$imagenDb->path = Storage::putFile('storage', $imagen);
-                //$imagenDb->save();
             }
         }
 

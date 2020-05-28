@@ -91,7 +91,7 @@ class ImagenController extends Controller
             //dd($imagen);
             Storage::delete([$imagen->path]);
             $imagen->delete();
-            return redirect()->route('perfil.edit', $type )->with('message', 'Imagen eliminada');
+            return redirect()->route('editPerfil', $type->id )->with('message', 'Imagen eliminada');
         }else {
             if(isset($type->contenido)){
                 //echo "Entra 2";
