@@ -25,7 +25,7 @@
             <div class="absolute hidden hover:opacity-100 items-center lg:flex md:hidden mt-2 opacity-50 sm:hidden w-full">
             <a href='{{ url('perfil/'.$historia->user->id.'') }}' class='flex hover:bg-gray-300 items-center pr-3 py-1 rounded-r-full'>
                 <img class="h-8 ml-2 mr-1 rounded-full w-8"
-                    src="{{ url(''.$historia->user->imagen->path != null ? $historia->user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}"
+                    src="{{ url(''.$historia->user->imagen != null ? $historia->user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}"
                     alt="{{ _($historia->user->name) }}">
                 <div id="user_despegable" class="text-sm w-auto">
                     <p class="leading-none text-gray-500 uppercase text-xs"> {{ \Illuminate\Support\Str::limit($historia->user->name, 14, $end='...') }} </p>
@@ -53,7 +53,7 @@
                 <div class="flex md:flex lg:hidden sm:flex ">
                     <a href='{{ url('perfil/'.$historia->user->id.'') }}' class='flex items-center'>
                     <img class="h-8 mr-2 rounded-full w-8 perfil-min"
-                    src="{{ url(''.$historia->user->url_perfil != null ? $historia->user->url_perfil : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}"
+                    src="{{ url(''.$historia->user->imagen != null ? $historia->user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}"
                     alt="{{ _($historia->user->name) }}">
                     <div class="text-sm w-auto">
                         <p class="text-gray-500 leading-none text-xs"> {{ _($historia->user->name) }} </p>

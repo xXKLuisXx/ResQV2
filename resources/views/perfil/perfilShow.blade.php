@@ -12,7 +12,7 @@
 <div class="bg-orange-500 bg-purple-900 float-left pb-10 pt-10 w-full">
     <div class="w-full pb-10">
         <div class="w-full overflow-auto">
-            <img src="{{ url(''.$user->imagen->path != null ? $user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}" class="float-left h-32 rounded-full w-32" style="left: 50%; position: relative; margin-left: -64px;">
+            <img src="{{ url(''.$user->imagen != null ? $user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}" class="float-left h-32 rounded-full w-32" style="left: 50%; position: relative; margin-left: -64px;">
         </div>
         <div id="evaluacion">
             <p class="pt-3 text-black text-center text-white uppercase">

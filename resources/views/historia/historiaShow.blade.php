@@ -70,7 +70,7 @@ href="{{ route('historia.edit', $historia->id) }}"><i class="far fa-edit"></i>
         @endif
         @endforeach
         <div class="w-full my-2" id="coment_{{$comentario->id}}">
-            <img src="{{url($comentario->user->url_perfil)}}" class="border border-purple-500 flex float-right h-8 ml-1 mr-2 mt-1 rounded-full w-8">
+            <img src="{{url( $comentario->user->imagen != null ? $comentario->user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg")}}" class="border border-purple-500 flex float-right h-8 ml-1 mr-2 mt-1 rounded-full w-8">
             <form id="evaluacion" class="flex float-right pl-2 pr-2 pt-1" style="width: auto;">
                 <input type="hidden" name="token_{{$comentario->id}}" value="{{csrf_token()}}">
                 <p class="clasificacion @if($evaluo || $comentario->user->id == Auth::user()->id) cancel invisible @endif" >

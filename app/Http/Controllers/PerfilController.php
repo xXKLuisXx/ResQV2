@@ -58,8 +58,23 @@ class PerfilController extends Controller
         //$user = User::where('id', $id)->first();
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
         $historias = Historia::where('user_id', $user->id)->get();
-        $rating['total'] = 10;
-        $rating['calificacion'] = 30 / $rating['total'];
+
+        $item = 0;
+        $ev_tot = 0;
+        foreach ($user->comentarios() as $comentario) {
+            foreach ($comentario->evaluaciones() as $evaluacion) {
+                $item++;
+                $ev_tot += $evaluacion->calificacion;
+            }
+        }
+
+        if ($item != 0) {
+            $rating['total'] = $item;
+            $rating['calificacion'] = $ev_tot / $rating['total'];
+        } else {
+            $rating['total'] = 0;
+            $rating['calificacion'] = 1;
+        }
 
         return view('perfil/perfilShow', compact('user', 'historias', 'rating', 'mi_perfil'));
     }
@@ -98,13 +113,13 @@ class PerfilController extends Controller
 
         if ($request->hasFile('perfil')) {
             $user = User::find(Auth::user()->id);
-            if($user->imagen != null){
+            if ($user->imagen != null) {
                 $imagen = $user->imagen;
                 $imagen->nombre_imagen = $request->perfil->getClientOriginalName();
                 $imagen->extension =  $request->perfil->extension();
                 $imagen->path = Storage::putFile('storage', $request->perfil);
                 $imagen->save();
-            }else{
+            } else {
                 $user->imagen()->create([
                     'nombre_imagen' => $request->perfil->getClientOriginalName(),
                     'extension' => $request->perfil->extension(),

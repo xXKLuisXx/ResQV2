@@ -4,18 +4,22 @@
 @section('content')
 
 <div class="bg-purple-900 float-left pb-10 pt-10 w-full">
-    
+
     <div class="w-full pb-10">
         <div class="w-full overflow-auto">
 
             <label for="perfil" class="float-left h-40 rounded-full text-center text-white w-32" style="left: 50%; position: relative; margin-left: -64px;">
+                @if($user->imagen!=null)
                 <form action="{{ route('imagen.destroy', $user->imagen->id) }}" method="POST" class="flex float-left mx-3 my-2 w-auto relative" style="height: 300px; max-height: 300px;">
                     @csrf
                     @method('DELETE')
-                    <img id="perfil_img" src="{{ url(''.$user->imagen->path != null ? $user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" .'') }}" class="float-left h-32 rounded-full w-32">
+                @endif
+                    <img id="perfil_img" src="{{ url(''.$user->imagen != null ? $user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" .'') }}" class="float-left h-32 rounded-full w-32">
                     Actualizar imagen<br>
+                @if($user->imagen!=null)
                     <button type="submit" class="absolute bg-red-700 border border-transparent btn btn-danger h-10 hover:border-white mr-1 mt-1 p-3 right-0 rounded text-white text-xs w-10">X</button>
                 </form>
+                @endif
             </label>
             {!! Form::model($user, ['route' => ['perfil.update', $user->id], 'method' => 'PATCH', 'enctype' => "multipart/form-data"]) !!}
             {!! Form::token() !!}
