@@ -81,13 +81,24 @@ class ImagenController extends Controller
      */
     public function destroy(Imagen $imagen)
     {
-        Storage::delete([$imagen->path]);
-        $imagen->delete();
-        if ($imagen->user != null){
-            return redirect()->route('perfil.edit', $imagen->user->id )->with('message', 'Imagen eliminada');
+        //echo "pertenece: ".$imagen->imagenable;
+        //dd($imagen);
+        $type = $imagen->imagenable;
+        //echo get_class($type->getRelated());
+        
+        if (isset($type->email) ){
+            //echo "Entra";
+            //dd($imagen);
+            Storage::delete([$imagen->path]);
+            $imagen->delete();
+            return redirect()->route('perfil.edit', $type )->with('message', 'Imagen eliminada');
         }else {
-            if($imagen->historia != null){
-                return redirect()->route('historia.edit', $imagen->historia->id )->with('message', 'Imagen eliminada');
+            if(isset($type->contenido)){
+                //echo "Entra 2";
+                //dd($imagen);
+                Storage::delete([$imagen->path]);
+                $imagen->delete();
+                return redirect()->route('historia.edit', $type->id )->with('message', 'Imagen eliminada');
             }
         }
     }

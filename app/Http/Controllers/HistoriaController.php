@@ -123,19 +123,26 @@ class HistoriaController extends Controller
 
         $data = $request->except('imagenes', '_token', '_method');
 
+        $historia = Historia::find($id);//Historia::where('id', $id);
+        
         if ($request->imagenes != '') {
             foreach ($request->imagenes as $imagen) {
-                $imagenDb = new Imagen();
-                $imagenDb->historia_id = $id;
-                $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-                $imagenDb->extension = $imagen->extension();
-                $imagenDb->path = Storage::putFile('storage', $imagen);
-                $imagenDb->save();
+                $historia->imagenes()->create([
+                    'nombre_imagen' => $imagen->getClientOriginalName(),
+                    'extension' => $imagen->extension(),
+                    'path' => Storage::putFile('storage', $imagen),
+                ]);
+                //$imagenDb = new Imagen();
+                //$imagenDb->historia_id = $id;
+                //$imagenDb->nombre_imagen = $imagen->getClientOriginalName();
+                //$imagenDb->extension = $imagen->extension();
+                //$imagenDb->path = Storage::putFile('storage', $imagen);
+                //$imagenDb->save();
             }
         }
 
-        Historia::where('id', $id)->update($data);
-        return redirect()->route('historia.show', $id)->with('message', 'Historia actualizada');;
+        $historia->update($data);
+        return redirect()->route('historia.show', $id)->with('message', 'Historia actualizada');
     }
 
     /**
