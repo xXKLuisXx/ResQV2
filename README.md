@@ -10,7 +10,11 @@
 ## Resq App
 ## Integrantes
 Luis López
+
 Francisco Hernandez
+
+## Objetivo del proyecto
+
 
 ## Instalación básica
 Esta aplicación se encuentra en desarrollo
