@@ -9,12 +9,13 @@ use App\Historia;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use DB;
 
 class PerfilController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show_descriptive');
     }
     /**
      * Display a listing of the resource.
@@ -47,6 +48,27 @@ class PerfilController extends Controller
         //
     }
 
+    public function show_descriptive(User $user){
+        $descriptive['user'] = $user->name;
+        $descriptive['historias'] = Historia::where('user_id', $user->id)->get();
+
+        $ev_comentarios = DB::select('SELECT SUM(evaluacions.calificacion) AS cal, COUNT(evaluacions.id) AS tot FROM comentarios LEFT JOIN evaluacions ON comentarios.id = evaluacions.comentario_id WHERE comentarios.user_id=?', [$user->id]);
+
+        $item = $ev_comentarios[0]->tot;
+        $ev_tot = $ev_comentarios[0]->cal;
+
+        if ($item != 0) {
+            $descriptive['total'] = $item;
+            $descriptive['calificacion'] = $ev_tot / $descriptive['total'];
+        } else {
+            $descriptive['total'] = 0;
+            $descriptive['calificacion'] = 1;
+        }
+
+        $json = json_encode($descriptive);
+        return response()->json($json);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -59,14 +81,10 @@ class PerfilController extends Controller
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
         $historias = Historia::where('user_id', $user->id)->get();
 
-        $item = 0;
-        $ev_tot = 0;
-        foreach ($user->comentarios() as $comentario) {
-            foreach ($comentario->evaluaciones() as $evaluacion) {
-                $item++;
-                $ev_tot += $evaluacion->calificacion;
-            }
-        }
+        $ev_comentarios = DB::select('SELECT SUM(evaluacions.calificacion) AS cal, COUNT(evaluacions.id) AS tot FROM comentarios LEFT JOIN evaluacions ON comentarios.id = evaluacions.comentario_id WHERE comentarios.user_id=?', [$user->id]);
+
+        $item = $ev_comentarios[0]->tot;
+        $ev_tot = $ev_comentarios[0]->cal;
 
         if ($item != 0) {
             $rating['total'] = $item;
