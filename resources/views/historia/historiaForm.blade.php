@@ -51,6 +51,9 @@ Crear historia
                     {!! Form::label('privacidad', 'Privacidad', ['class' =>'block text-white text-xm font-bold mb-2 mt-2']) !!}
                     {!! Form::select('privacidad', ['Publico'=>'Publico', 'Privado'=>'Privado'], isset($historia) ? $historia->privacidad : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'required']) !!}
 
+                    {!! Form::label('etiquetas', 'etiquetas', ['class' =>'block text-white text-xm font-bold mb-2 mt-2']) !!}
+                    {!! Form::select('etiquetas[]', $etiquetas, isset($historia) ? $historia->etiquetas : null, ['class' => 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'multiple']) !!}
+
                     {!! Form::label('Anexos', null, ['class' =>'w-full flex mt-3 block text-white text-xm font-bold mb-2']) !!}<br>
                     <label for="files_name" class="bg-pink-700 flex px-2 py-1 rounded text-white  border border-transparent hover:border-white">
                                     <i class="fas fa-paperclip flex mt-1"> </i>
