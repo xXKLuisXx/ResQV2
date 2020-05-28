@@ -8,6 +8,10 @@
 </p>
 
 ## Resq App
+## Integrantes
+Luis López
+Francisco Hernandez
+
 ## Instalación básica
 Esta aplicación se encuentra en desarrollo
 
