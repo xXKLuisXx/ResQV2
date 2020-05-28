@@ -21,7 +21,8 @@ Para lograr ejecutar esta aplicación es necesario realizar los siguientes pasos
 5.  Modificar el archivo **.env** y colocar los datos relacionados a la base de datos local y todas las variables necesarias (*pedir el **.env** a un administrador*).
 6.  Ejecutar todas las migraciones y las semillas con el comando: (**php artisan migrate:fresh --seed**).
 
-## Instalacion de Tailwind
-
 ## Configuración .env to mailtrap
-
+1.  Crear una cuenta en mailtrap.io
+2.  Abrir **Demo inbox**
+3.  Copiar las credenciales para usario y contraseña
+4.  Pegarlas en el archivo de configuracion **.env**
