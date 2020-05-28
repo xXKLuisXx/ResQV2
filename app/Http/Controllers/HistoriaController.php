@@ -67,22 +67,11 @@ class HistoriaController extends Controller
                     'extension' => $imagen->extension(),
                     'path' => Storage::putFile('storage', $imagen),
                 ]);
-                //$imagenDb = new Imagen();
-                //$imagenDb->historia_id = $historia->id;
-                //$imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-                //$imagenDb->extension = $imagen->extension();
-                //$imagenDb->path = Storage::putFile('storage', $imagen);
-                //$imagenDb->save();
-                //echo $path;
             }
         }
         if(isset($request->etiquetas)){
             $historia->etiquetas()->sync($request->etiquetas);
         }
-        //echo $request->file('imagenes');
-        //$path = $request->imagenes->store('images');
-        //echo $path;
-        //Storage::putFile('images', new File('/path/to/photo')); echo $request->files;
 
         return redirect()->route('historia.index')->with('message', 'Historia agregada');
     }
@@ -131,21 +120,20 @@ class HistoriaController extends Controller
 
         $data = $request->except('imagenes', '_token', '_method', 'etiquetas');
 
+        $historia = Historia::find($id);//Historia::where('id', $id);
+        
         if ($request->imagenes != '') {
             foreach ($request->imagenes as $imagen) {
-                $imagenDb = new Imagen();
-                $imagenDb->historia_id = $id;
-                $imagenDb->nombre_imagen = $imagen->getClientOriginalName();
-                $imagenDb->extension = $imagen->extension();
-                $imagenDb->path = Storage::putFile('storage', $imagen);
-                $imagenDb->save();
+                $historia->imagenes()->create([
+                    'nombre_imagen' => $imagen->getClientOriginalName(),
+                    'extension' => $imagen->extension(),
+                    'path' => Storage::putFile('storage', $imagen),
+                ]);
             }
         }
 
-        $historia = Historia::where('id', $id)->first();
         $historia->etiquetas()->sync($request->etiquetas);
-
-        Historia::where('id', $id)->update($data);
+        $historia->update($data);
         return redirect()->route('historia.show', $id)->with('message', 'Historia actualizada');;
     }
 

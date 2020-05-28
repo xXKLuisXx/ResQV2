@@ -19,11 +19,8 @@ class Imagen extends Model
         'extension',
     ];
 
-    public function historia(){
-        return $this->morphTo(Historia::class, 'imagenable');
-    }
-
-    public function user(){
-        return $this->morphOne(User::class, 'imagenable');
+    public function imagenable()
+    {
+        return $this->morphTo();
     }
 }
