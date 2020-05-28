@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->name = 'User pruebas';
         $user->email = 'user@example.com';
+        $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
         $user->roles()->attach($role_user);
@@ -29,6 +31,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@example.com';
+        $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
         $user->roles()->attach($role_admin);
@@ -36,6 +39,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Validador';
         $user->email = 'validador@example.com';
+        $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
         $user->roles()->attach($role_validador);
@@ -43,6 +47,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Psicologo';
         $user->email = 'psicologo@example.com';
+        $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
         $user->roles()->attach($role_psicologo);
@@ -50,6 +55,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Invitado';
         $user->email = 'invitado@example.com';
+        $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
         $user->roles()->attach($role_invitado);
