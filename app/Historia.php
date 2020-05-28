@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Scopes\PublicScope;
 
 class Historia extends Model
 {
@@ -39,5 +40,12 @@ class Historia extends Model
     public function etiquetas()
     {
         return $this->belongsToMany(Etiqueta::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new PublicScope);
     }
 }

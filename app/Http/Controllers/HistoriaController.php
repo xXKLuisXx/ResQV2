@@ -8,6 +8,7 @@ use App\Imagen;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use App\Scopes\PublicScope;
 
 class HistoriaController extends Controller
 {
@@ -84,7 +85,7 @@ class HistoriaController extends Controller
      */
     public function show($id)/*Historia $historia)*/
     {
-        $historia = Historia::where('id', $id)->first();
+        $historia = Historia::withoutGlobalScope(PublicScope::class)->where('id', $id)->first();
         return view('historia/historiaShow', compact('historia'));
     }
 
@@ -121,7 +122,7 @@ class HistoriaController extends Controller
         $data = $request->except('imagenes', '_token', '_method', 'etiquetas');
 
         $historia = Historia::find($id);//Historia::where('id', $id);
-        
+
         if ($request->imagenes != '') {
             foreach ($request->imagenes as $imagen) {
                 $historia->imagenes()->create([

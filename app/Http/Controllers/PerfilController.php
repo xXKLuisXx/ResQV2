@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use App\Scopes\PublicScope;
 
 class PerfilController extends Controller
 {
@@ -79,7 +80,7 @@ class PerfilController extends Controller
     {
         //$user = User::where('id', $id)->first();
         $user->id == Auth::user()->id ? $mi_perfil = true : $mi_perfil = false;
-        $historias = Historia::where('user_id', $user->id)->get();
+        $historias = Historia::withoutGlobalScope(PublicScope::class)->where('user_id', $user->id)->get();
 
         $ev_comentarios = DB::select('SELECT SUM(evaluacions.calificacion) AS cal, COUNT(evaluacions.id) AS tot FROM comentarios LEFT JOIN evaluacions ON comentarios.id = evaluacions.comentario_id WHERE comentarios.user_id=?', [$user->id]);
 
