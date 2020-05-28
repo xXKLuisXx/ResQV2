@@ -30,7 +30,10 @@ Para lograr ejecutar esta aplicación es necesario realizar los siguientes pasos
 6.  Ejecutar todas las migraciones y las semillas con el comando: (**php artisan migrate:fresh --seed**).
 
 ## Configuración .env to mailtrap
-1.  Crear una cuenta en mailtrap.io
-2.  Abrir **Demo inbox**
-3.  Copiar las credenciales para usario y contraseña
-4.  Pegarlas en el archivo de configuracion **.env**
+1.  Crear una cuenta en mailtrap.io.
+2.  Abrir **Demo inbox**.
+3.  Copiar las credenciales para usario y contraseña.
+4.  Pegarlas en el archivo de configuracion **.env**.
+
+## Configuración imágenes storage
+1. Ejecutar el siguiente comando: (**php artisan storage:link**).
