@@ -21,15 +21,23 @@ class Historia extends Model
 
     protected $table = 'historias';
 
-    function imagenes(){
+    function imagenes()
+    {
         return $this->morphMany(Imagen::class, 'imagenable');
     }
 
-    function user(){
+    function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    function comentarios(){
+    function comentarios()
+    {
         return $this->hasMany(Comentario::class);
+    }
+
+    public function etiquetas()
+    {
+        return $this->belongsToMany(Etiqueta::class);
     }
 }

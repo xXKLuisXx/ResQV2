@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Etiqueta;
 use App\Historia;
 use App\Imagen;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class HistoriaController extends Controller
      */
     public function create()
     {
-        return view('historia/historiaForm');
+        $etiquetas = Etiqueta::all()->pluck('nombre', 'id');;
+        return view('historia/historiaForm', compact('etiquetas'));
     }
 
     /**
@@ -48,6 +50,7 @@ class HistoriaController extends Controller
             'contenido' => 'required|min:25',
             'privacidad' => 'required',
             'imagenes' => '',
+            'etiquetas' => '',
         ]);
 
         $historia = new Historia();
@@ -72,6 +75,9 @@ class HistoriaController extends Controller
                 //$imagenDb->save();
                 //echo $path;
             }
+        }
+        if(isset($request->etiquetas)){
+            $historia->etiquetas()->sync($request->etiquetas);
         }
         //echo $request->file('imagenes');
         //$path = $request->imagenes->store('images');
@@ -101,8 +107,9 @@ class HistoriaController extends Controller
      */
     public function edit($id)/*Historia $historia)*/
     {
+        $etiquetas = Etiqueta::all()->pluck('nombre', 'id');;
         $historia = Historia::where('id', $id)->first();
-        return view('historia/historiaForm', compact('historia'));
+        return view('historia/historiaForm', compact('historia','etiquetas'));
     }
 
     /**
@@ -119,9 +126,10 @@ class HistoriaController extends Controller
             'contenido' => 'required|min:25',
             'privacidad' => 'required',
             'imagenes' => '',
+            'etiquetas' => '',
         ]);
 
-        $data = $request->except('imagenes', '_token', '_method');
+        $data = $request->except('imagenes', '_token', '_method', 'etiquetas');
 
         if ($request->imagenes != '') {
             foreach ($request->imagenes as $imagen) {
@@ -133,6 +141,9 @@ class HistoriaController extends Controller
                 $imagenDb->save();
             }
         }
+
+        $historia = Historia::where('id', $id)->first();
+        $historia->etiquetas()->sync($request->etiquetas);
 
         Historia::where('id', $id)->update($data);
         return redirect()->route('historia.show', $id)->with('message', 'Historia actualizada');;
