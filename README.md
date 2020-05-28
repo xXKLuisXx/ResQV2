@@ -14,7 +14,12 @@ Luis López
 Francisco Hernandez
 
 ## Objetivo del proyecto
+Ser un red de apoyo moral a personas en situación de violencia, mediante el uso de una plataforma que permite interactuar entre usuarios mostrando a manera de anécdotas o historias evidenciadas su situacion para de ésta manera obtener ayuda profesional, durante su etapa de apoyo en la plataforma.
 
+## Abstract
+Los usuarios podrán crear historias dónde narren su situación y los demás usuarios podrán retroalimentar su historia por medio de comentarios, buscando siempre mostrar apoyo e interés en que la persona salga de su situación de violencia .
+
+Las historias pueden ser publicas y privadas y si se cree conveniente puede contener imagenes, además cada comentario puede ser evaluado en una escala de 1-5, dicha evaluación será reflejada en el perfil del usuario que comento, para por medio de esas evaluaciones crearle al usuario una reputación dentro de la plataforma.
 
 ## Instalación básica
 Esta aplicación se encuentra en desarrollo
