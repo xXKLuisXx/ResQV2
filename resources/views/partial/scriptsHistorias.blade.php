@@ -91,7 +91,7 @@
                 elem.innerHTML += '<div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2"><p>' + json.contenido +'</p></div>';
             } else {
                 var elem = document.getElementById('commentsSpace');
-                elem.innerHTML += '<div class="w-full my-2" id="coment_'+json.id+ ' "><img src="{{ url(''.Auth::user()->imagen != null ? $user->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}" class="border border-purple-500 flex float-right h-8 ml-1 mr-2 mt-1 rounded-full w-8"><p class="bg-white border pl-3 py-2 rounded-l-lg rounded-r-lg text-gray-600">'+json.contenido+'</p></div>';
+                elem.innerHTML += '<div class="w-full my-2" id="coment_'+json.id+ ' "><img src="{{ url(''.Auth::user()->imagen != null ? Auth::user()->imagen->path : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg".'') }}" class="border border-purple-500 flex float-right h-8 ml-1 mr-2 mt-1 rounded-full w-8"><p class="bg-white border pl-3 py-2 rounded-l-lg rounded-r-lg text-gray-600">'+json.contenido+'</p></div>';
             }
                 //alert(data.success);
             }

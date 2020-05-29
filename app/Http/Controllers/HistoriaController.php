@@ -98,7 +98,7 @@ class HistoriaController extends Controller
     public function edit($id)/*Historia $historia)*/
     {
         $etiquetas = Etiqueta::all()->pluck('nombre', 'id');;
-        $historia = Historia::where('id', $id)->first();
+        $historia = Historia::withoutGlobalScope(PublicScope::class)->where('id', $id)->first();
         return view('historia/historiaForm', compact('historia','etiquetas'));
     }
 

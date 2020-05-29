@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imagen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Scopes\PublicScope;
 
 class ImagenController extends Controller
 {
@@ -85,7 +86,7 @@ class ImagenController extends Controller
         //dd($imagen);
         $type = $imagen->imagenable;
         //echo get_class($type->getRelated());
-        
+
         if (isset($type->email) ){
             //echo "Entra";
             //dd($imagen);
