@@ -121,7 +121,7 @@ class HistoriaController extends Controller
 
         $data = $request->except('imagenes', '_token', '_method', 'etiquetas');
 
-        $historia = Historia::find($id);//Historia::where('id', $id);
+        $historia = Historia::withoutGlobalScope(PublicScope::class)->find($id);//Historia::where('id', $id);
 
         if ($request->imagenes != '') {
             foreach ($request->imagenes as $imagen) {
@@ -146,7 +146,7 @@ class HistoriaController extends Controller
      */
     public function destroy($id)/*Historia $historia)*/
     {
-        $historia = Historia::where('id', $id)->first();
+        $historia = Historia::withoutGlobalScope(PublicScope::class)->where('id', $id)->first();
         $historia->delete();
         return redirect()->route('historia.index')->with('message', 'Historia eliminada');
     }
