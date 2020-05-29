@@ -10,7 +10,9 @@ class Etiqueta extends Model
         return $this->belongsToMany(Historia::class);
     }
     
-    public function getNombreAttribute(){
-        return "#"."{$this->nombre}";
+    
+    public function getNombreAttribute($value){
+        return "#".$value;
     }
+    
 }
