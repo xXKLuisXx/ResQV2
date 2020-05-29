@@ -8,6 +8,19 @@
 </p>
 
 ## Resq App
+## Integrantes
+Luis López
+
+Francisco Hernandez
+
+## Objetivo del proyecto
+Ser un red de apoyo moral a personas en situación de violencia, mediante el uso de una plataforma que permite interactuar entre usuarios mostrando a manera de anécdotas o historias evidenciadas su situación, para de ésta manera obtener ayuda profesional, durante su etapa de apoyo en la plataforma.
+
+## Abstract
+Los usuarios podrán crear historias dónde narren su situación y los demás usuarios podrán retroalimentar su historia por medio de comentarios, buscando siempre mostrar apoyo e interés en que la persona salga de su situación de violencia .
+
+Las historias pueden ser públicas y privadas y si se cree conveniente puede contener imágenes, además cada comentario puede ser evaluado en una escala de 1-5, dicha evaluación será reflejada en el perfil del usuario que comentó, para por medio de esas evaluaciones crearle al usuario una reputación dentro de la plataforma.
+
 ## Instalación básica
 Esta aplicación se encuentra en desarrollo
 
@@ -21,7 +34,11 @@ Para lograr ejecutar esta aplicación es necesario realizar los siguientes pasos
 5.  Modificar el archivo **.env** y colocar los datos relacionados a la base de datos local y todas las variables necesarias (*pedir el **.env** a un administrador*).
 6.  Ejecutar todas las migraciones y las semillas con el comando: (**php artisan migrate:fresh --seed**).
 
-## Instalacion de Tailwind
-
 ## Configuración .env to mailtrap
+1.  Crear una cuenta en mailtrap.io.
+2.  Abrir **Demo inbox**.
+3.  Copiar las credenciales para usario y contraseña.
+4.  Pegarlas en el archivo de configuracion **.env**.
 
+## Configuración imágenes storage
+1. Ejecutar el siguiente comando: (**php artisan storage:link**).
