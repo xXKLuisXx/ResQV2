@@ -36,5 +36,8 @@ class RoleTableSeeder extends Seeder
         $role->name = 'invitado';
         $role->description = 'Invitado';
         $role->save();
+
+        $role = new Role();
+        $role->name = 'Ejemplo';
     }
 }
