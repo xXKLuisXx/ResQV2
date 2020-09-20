@@ -4,12 +4,12 @@
     var json;
     function OpenCommentsBar(numberstory,historia_id){
         console.log(numberstory)
-        if (coll[numberstory-1].style.display === "grid") {
+        if (coll[numberstory-1].style.display === "flex") {
             coll[numberstory-1].style.display = "none";
             var elem = document.getElementById('commentsSpace_'+historia_id);
             elem.innerHTML = "";
         } else {
-            coll[numberstory-1].style.display = "grid";
+            coll[numberstory-1].style.display = "flex";
             $.ajax({
                 type:'GET',
                 url:"{{ action('ComentarioController@index') }}",

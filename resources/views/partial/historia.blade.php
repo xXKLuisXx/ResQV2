@@ -66,15 +66,15 @@
                 </div>
             </div>
         </div>
-        <div class="w-3/6 contentComments">
-            <div id="commentsSpace_{{$historia->id}}" class="overflow-y-scroll h-full">
+        <div class="w-3/6 contentComments" style="display: flex; flex-direction: column; padding: 0;">
+            <div id="commentsSpace_{{$historia->id}}" class="overflow-y-scroll h-full w-full">
             </div>
-            <div class="w-full">
+            <div class="w-full" style="height: 50px; padding-left: 10pxd">
                 <form>
                     <input type="hidden" name="token_{{$historia->id}}" value="{{csrf_token()}}">
                     <div class="flex">
                         <input
-                            class="my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="mx-2 my-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text" placeholder="Comentario"
                             id="comentario_id_{{$historia->id}}">
                         <div class="mx-2 text-xl self-center">
