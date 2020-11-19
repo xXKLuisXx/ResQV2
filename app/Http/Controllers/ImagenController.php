@@ -6,6 +6,9 @@ use App\Imagen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Scopes\PublicScope;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Artisan;
 
 class ImagenController extends Controller
 {
@@ -16,7 +19,17 @@ class ImagenController extends Controller
      */
     public function index()
     {
-        //
+        $process = new Process(['C:\Users\veloc\AppData\Local\Programs\Python\Python39\python', 'nlp_script.py', 'arg1']);
+
+        try {
+            $process->run();
+            echo $process->getOutput();
+
+        } catch (ProcessFailedException $exception) {
+            echo $exception->getMessage();
+        }
+        
+        return response()->json();
     }
 
     /**
