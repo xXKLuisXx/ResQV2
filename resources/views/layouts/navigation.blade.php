@@ -58,6 +58,9 @@
                     </a>
                     @endif
                 @else
+                <a href="{{ url('chat')}}" class="notific block hover:text-pink-700 hover:text-white inline-block p-2 text-white">
+                    <i class="fas fa-comment-dots"></i>
+                </a>
                 <a href='#notificcion' onclick="event.preventDefault();notificaciones();"
                     class="notific block hover:text-pink-700 hover:text-white inline-block p-2 text-white">
                     <i class="fas fa-bell"></i>

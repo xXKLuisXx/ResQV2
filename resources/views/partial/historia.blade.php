@@ -68,6 +68,11 @@
         </div>
         <div class="w-3/6 contentComments" style="display: flex; flex-direction: column; padding: 0;">
             <div id="commentsSpace_{{$historia->id}}" class="overflow-y-scroll h-full w-full">
+                @foreach ($historia->comentarios as $comentario)
+                    <div class="bg-indigo-800 text-white rounded-lg mx-2 px-2 my-2">
+                        <p>{{$comentario->contenido }}</p>
+                    </div>
+                @endforeach
             </div>
             <div class="w-full" style="height: 50px; padding-left: 10pxd">
                 <form>
