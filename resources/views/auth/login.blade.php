@@ -2,8 +2,8 @@
 @section('title', 'Inicia sesion')
 @section('content')
 
-<div class="flex justify-center items-center h-full">
-    <div class="">
+<div class="flex justify-center items-center h-full" style="position: fixed; justify-content: center; display: flex; width: 100%;">
+    <div style="width: 80%">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="mb-4">

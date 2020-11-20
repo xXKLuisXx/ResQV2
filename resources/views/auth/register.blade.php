@@ -2,8 +2,8 @@
 @section('title' ,'Registro')
 @section('content')
 
-<div class="flex justify-center items-center h-full">
-    <div class="">
+<div class="flex justify-center items-center h-full" style="position: fixed; justify-content: center; display: flex; width: 100%;">
+    <div class="" style="width: 80%">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('register') }}">
             @csrf
             <div class="flex flex-wrap -mx-3 mb-6">
