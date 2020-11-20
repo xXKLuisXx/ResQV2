@@ -90,4 +90,8 @@ class User extends Authenticatable
     function comentarios(){
         return $this->hasMany(Comentario::class);
     }
+
+    function chats(){
+        return $this->belongsToMany(Chat::class);
+    }
 }
