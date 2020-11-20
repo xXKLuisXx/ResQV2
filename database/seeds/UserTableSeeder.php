@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UserTableSeeder extends Seeder
 {
@@ -20,17 +21,21 @@ class UserTableSeeder extends Seeder
         $role_psicologo = Role::where('name', 'psicologo')->first();
         $role_invitado = Role::where('name', 'invitado')->first();
 
-        $user = new User();
-        $user->name = 'User pruebas';
-        $user->email = 'user@example.com';
-        $user->api_token = hash('sha256', hash('sha256', $user->email));
-        $user->password = bcrypt('secret');
-        $user->save();
-        $user->roles()->attach($role_user);
+        for ($i=0; $i < 20 ; $i++) { 
+            $user = new User();
+            $user->name = 'User '.$i;
+            $user->email = 'user'.$i.'@example.com';
+            $user->email_verified_at = Carbon::now();
+            $user->api_token = hash('sha256', hash('sha256', $user->email));
+            $user->password = bcrypt('secret');
+            $user->save();
+            $user->roles()->attach($role_user);
+        }
 
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@example.com';
+        $user->email_verified_at = Carbon::now();
         $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
@@ -39,22 +44,27 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->name = 'Validador';
         $user->email = 'validador@example.com';
+        $user->email_verified_at = Carbon::now();
         $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
         $user->roles()->attach($role_validador);
 
-        $user = new User();
-        $user->name = 'Psicologo';
-        $user->email = 'psicologo@example.com';
-        $user->api_token = hash('sha256', hash('sha256', $user->email));
-        $user->password = bcrypt('secret');
-        $user->save();
-        $user->roles()->attach($role_psicologo);
+        for ($i=0; $i < 10; $i++) { 
+            $user = new User();
+            $user->name = 'Psicologo'. $i;
+            $user->email = 'psicologo'.$i.'@example.com';
+            $user->email_verified_at = Carbon::now();
+            $user->api_token = hash('sha256', hash('sha256', $user->email));
+            $user->password = bcrypt('secret');
+            $user->save();
+            $user->roles()->attach($role_psicologo);
+        }
 
         $user = new User();
         $user->name = 'Invitado';
         $user->email = 'invitado@example.com';
+        $user->email_verified_at = Carbon::now();
         $user->api_token = hash('sha256', hash('sha256', $user->email));
         $user->password = bcrypt('secret');
         $user->save();
