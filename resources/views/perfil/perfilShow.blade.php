@@ -40,7 +40,23 @@
         </div>
     </div>
     <div class="bg-white hover:shadow-lg mt-5 p-4 rounded shadow w-8/12 w-8/12 bg-white" style="position: absolute; min-height: 109px;  margin-top: -10px; left: 50%; transform: translateX(-50%);">
-        <h4 class="text-2xl text-purple-900">Acerca de mí</h4>
+        <div style="display: flex">
+            <div style="width: 50%">
+                <h4 class="text-2xl text-purple-900">Acerca de mí</h4>
+            </div>
+            @if ($is_valid_chat)
+            <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%">
+                {{ _('Chat 2')}}
+                <form action="{{ action('ChatController@store') }}" method="POST">
+                    @csrf
+                    <input name="user_id" value="{{ $user->id }}" type="number" hidden>
+                    <button type="submit" class="notific block hover:text-pink-700 hover:text-white inline-block p-2 text-black">
+                        <i class="fas fa-comment-dots"></i>
+                    </button>
+                </form>
+            </div>
+            @endif
+        </div>
         <p class="text-justify text-purple-600 text-sm">{{$user->biografia}}</p>
         @if($mi_perfil)
         <a href="#submenu" class="absolute mr-3 mt-5 right-0 top-0" onclick="event.preventDefault(); desplegar('submenu');"><i class="fas fa-ellipsis-v"></i></a>

@@ -95,7 +95,16 @@ class PerfilController extends Controller
             $rating['calificacion'] = 1;
         }
 
-        return view('perfil/perfilShow', compact('user', 'historias', 'rating', 'mi_perfil'));
+        $is_valid_chat = false;
+        //si el id es diferente al mio
+        if($user->id != Auth::user()->id){
+            if($user->roles->find(3) != null){
+                $is_valid_chat = true;
+            }
+        }
+        
+        //dd($is_valid_chat);
+        return view('perfil/perfilShow', compact('user', 'historias', 'rating', 'mi_perfil', 'is_valid_chat'));
     }
 
     /**

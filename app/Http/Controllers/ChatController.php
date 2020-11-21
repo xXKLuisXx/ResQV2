@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Chat;
+use App\User;
+use App\Role;
+use DB;
+use Auth;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -14,7 +18,20 @@ class ChatController extends Controller
      */
     public function index()
     {
-        return view('chat.chat-index');
+        /*
+        $psicologos = DB::table('users as usr')
+        ->leftJoin('role_user as ru', 'ru.user_id', '=', 'usr.id')
+        ->leftJoin('roles as r', 'r.id', '=', 'ru.role_id')
+        ->where('ru.role_id', 3)
+        ->select('*')
+        ->get();
+        */
+        $psicologos = Role::find(3)->users;
+        $chats = Auth::user()->chats;
+
+        //dd($psicologos, $chats);
+
+        return view('chat.chat-index', ['psicologos' => $psicologos, 'chats' => $chats]);
         //
     }
 
@@ -37,6 +54,16 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         //
+        $psicologo = User::find($request->user_id);
+        
+        $chat = new Chat();
+        $chat->title = "chat";
+        $chat->save();
+
+        Auth::user()->chats()->attach($chat->id);
+        $psicologo->chats()->attach($chat->id);
+        
+        return redirect('/chat');
     }
 
     /**
@@ -48,6 +75,8 @@ class ChatController extends Controller
     public function show(Chat $chat)
     {
         //
+        $mensajes = $chat->mensajes;
+        return view('chat.private-chat', compact('mensajes'));
     }
 
     /**
