@@ -76,7 +76,8 @@ class ChatController extends Controller
     {
         //
         $mensajes = $chat->mensajes;
-        return view('chat.private-chat', compact('mensajes'));
+        $chat_id = $chat->id;
+        return view('chat.private-chat', compact('mensajes', 'chat_id'));
     }
 
     /**

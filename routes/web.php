@@ -30,6 +30,7 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 
 Route::resource('historia', 'HistoriaController')->shallow()->middleware(['auth','isverified']);
+Route::resource('mensajes', 'MensajeController')->shallow()->middleware(['auth','isverified']);
 Route::resource('evaluacion', 'EvaluacionController')->shallow()->middleware(['auth','isverified']);
 Route::resource('perfil', 'PerfilController')->except('show','edit')->middleware(['auth','isverified']);
 Route::resource('chat', 'ChatController')->middleware(['auth','isverified']);

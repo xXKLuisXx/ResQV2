@@ -17,6 +17,7 @@ class CreateMensajesTable extends Migration
             $table->id();
             $table->string('content');
             $table->foreignId('chat_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
