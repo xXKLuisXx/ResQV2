@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Mensaje;
+use Auth;
 use Livewire\Component;
 
 class ChatList extends Component
@@ -11,11 +13,16 @@ class ChatList extends Component
     protected $listeners = ["catchMessage"];
 
     public function mount(){
-        $this->$chatMessages = [];
+        $this->chatMessages = [];
     }
 
-    public function chatMessage($message){
-        $this->chatMessages = $message;
+    public function catchMessage($message){
+        $mensaje = new Mensaje();
+        $mensaje->content = $message['contenido'];
+        $mensaje->user_id = Auth::user()->id;
+        $mensaje->chat_id = $message['chat_id'];
+        $mensaje->save();
+        array_push($this->chatMessages, $mensaje);
     }
 
     public function render()
