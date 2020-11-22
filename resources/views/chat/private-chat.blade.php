@@ -3,6 +3,7 @@
 
 @section('content')
 <div>
+    @livewire('chat-list')
     @livewire('chat-form')
 </div>
 <div style="width: 100%; display: flex; justify-content: center; height: 500px;">

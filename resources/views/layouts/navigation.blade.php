@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     @livewireStyles
     @livewireScripts
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </head>
 @yield('css')
 
