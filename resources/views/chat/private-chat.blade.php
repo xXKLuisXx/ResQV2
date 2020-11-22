@@ -2,6 +2,9 @@
 @section('title', 'Chat')
 
 @section('content')
+<div>
+    @livewire('chat-form')
+</div>
 <div style="width: 100%; display: flex; justify-content: center; height: 500px;">
     <div style="width: 80%; max-width: 1300px; display: flex; justify-content: center; flex-flow: column; padding:5px">
         <div style="background: lightgray; height:100%; border-radius:15px; padding:5px; display: flex; flex-direction: column;">
