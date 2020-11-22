@@ -42,7 +42,7 @@ class MensajeController extends Controller
         $mensaje->user_id = $request->user_id;
         $mensaje->save();
 
-        return redirect('navigation');
+        return back();
     }
 
     /**

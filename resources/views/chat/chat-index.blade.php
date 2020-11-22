@@ -37,12 +37,12 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div style="width: 100%">
 			<dt class="text-lg leading-6 font-medium text-gray-900">
 				{{ $chat->users->where('id', '!=', Auth::user()->id )->first()->name }}
 			</dt>
 			<dd class="mt-2 text-base text-gray-500">
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+				{{ $chat->mensajes->last()->content}}
 			</dd>
 		</div>
 		<div style="display: flex">
