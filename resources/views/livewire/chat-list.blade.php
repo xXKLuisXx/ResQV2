@@ -1,26 +1,20 @@
 <div>
     @foreach ($chatMessages as $message)
-    @if (!isset($message['user_id']))
-        @php
-            $message = $message['mensaje'];
-        @endphp
-    @endif
-
-    @if ($message['user_id'] == Auth::user()->id)
+    @if ($message['message']['user_id'] == Auth::user()->id)
     <div style="display:flex; justify-content: flex-end; width:100%; padding:2px">
         <p style="background:lightblue; max-width:300px; min-width:150px; padding:5px; border-radius:25px">
-            {{ $message['content'] }}
+            {{ $message['message']['contenido'] }}
         </p>
     </div>
     @else
     <div style="display:flex; justify-content: flex-start; width:100%; padding:2px">
         <p style="background:lightgreen; max-width:300px; min-width:150px; padding:5px; border-radius:25px">
-            {{ $message['content'] }}
+            {{ $message['message']['contenido'] }}
         </p>
     </div>
     @endif
     @endforeach
-    
+
     <script>
         Pusher.logToConsole = true;
 
@@ -28,12 +22,10 @@
             cluster: 'us2',
             forceTLS: true
         });
-
         var channel = pusher.subscribe('chat-channel');
 
         channel.bind('message-event', function(data) {
             console.log(data);
-            
             window.livewire.emit("catchMessage", data)
         });
     </script>

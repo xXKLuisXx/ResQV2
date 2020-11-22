@@ -15,17 +15,15 @@ class enviarMensaje implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $contenido;
-    public $chat_id;
+    public $message;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($contenido, $chat_id)
+    public function __construct($message)
     {
-        $this->contenido = $contenido;
-        $this->chat_id = $chat_id;
+        $this->message = $message;
     }
 
     /**

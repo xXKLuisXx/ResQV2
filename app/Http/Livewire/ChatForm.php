@@ -14,7 +14,6 @@ class ChatForm extends Component
 
     public function mount(){
         $this->contenido = "";
-        $this->chat_id = 0;
     }
 
     public function render()
@@ -22,7 +21,18 @@ class ChatForm extends Component
         return view('livewire.chat-form');
     }
 
-    public function sendMessage(){
-        event(new enviarMensaje($this->contenido, $this->chat_id));
+    public function sendMessage($chat_id){
+        $mensaje = new Mensaje();
+        $mensaje->content = $this->contenido;
+        $mensaje->user_id = Auth::user()->id;
+        $mensaje->chat_id = $chat_id;
+        $mensaje->save();
+
+        $message = [
+            "contenido" => $this->contenido,
+            "user_id" => Auth::user()->id,
+            "chat_id" => $this->chat_id
+        ];
+        event(new enviarMensaje($message));
     }
 }

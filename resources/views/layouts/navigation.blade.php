@@ -8,24 +8,27 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/all.js') }}" defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="{{ asset('js/loading-bar.min.js') }}" defer></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/loading-bar.css') }}" >
+    @livewireStyles
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
-    @livewireStyles
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/all.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/loading-bar.min.js') }}" defer></script>
     @livewireScripts
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        
+    </script>
 </head>
 @yield('css')
 
@@ -96,16 +99,15 @@
         @include('partial.error')
         @yield('content')
     </main>
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
-  function desplegar(modulo) {
-    if (!document.getElementById(modulo).classList.contains("activo")) {
-      document.getElementById(modulo).classList.add("activo");
-    } else {
-      document.getElementById(modulo).classList.remove("activo");
-    }
-  }
-</script>
+        function desplegar(modulo) {
+            if (!document.getElementById(modulo).classList.contains("activo")) {
+            document.getElementById(modulo).classList.add("activo");
+            } else {
+            document.getElementById(modulo).classList.remove("activo");
+            }
+        }
+    </script>
     @yield('js')
 </body>
 

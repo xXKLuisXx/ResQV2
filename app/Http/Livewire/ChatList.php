@@ -17,12 +17,7 @@ class ChatList extends Component
     }
 
     public function catchMessage($message){
-        $mensaje = new Mensaje();
-        $mensaje->content = $message['contenido'];
-        $mensaje->user_id = Auth::user()->id;
-        $mensaje->chat_id = $message['chat_id'];
-        $mensaje->save();
-        array_push($this->chatMessages, $mensaje);
+        array_push($this->chatMessages, $message);
     }
 
     public function render()
