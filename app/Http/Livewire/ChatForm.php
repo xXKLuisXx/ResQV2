@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Mensaje;
 use Auth;
-use App\Events\enviarMensaje;
+//use App\Events\enviarMensaje;
 use Livewire\Component;
 
 class ChatForm extends Component
@@ -33,6 +33,6 @@ class ChatForm extends Component
             "user_id" => Auth::user()->id,
             "chat_id" => $this->chat_id
         ];
-        event(new enviarMensaje($message));
+        event(new \App\Events\enviarMensaje($message));
     }
 }

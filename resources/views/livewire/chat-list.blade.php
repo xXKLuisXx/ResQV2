@@ -14,19 +14,4 @@
     </div>
     @endif
     @endforeach
-
-    <script>
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('bacefa0530c734dd7b0a', {
-            cluster: 'us2',
-            forceTLS: true
-        });
-        var channel = pusher.subscribe('chat-channel');
-
-        channel.bind('message-event', function(data) {
-            console.log(data);
-            window.livewire.emit("catchMessage", data)
-        });
-    </script>
 </div>

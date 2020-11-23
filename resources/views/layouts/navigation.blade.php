@@ -27,7 +27,12 @@
     @livewireScripts
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
-        
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('bacefa0530c734dd7b0a', {
+            cluster: 'us2',
+            forceTLS: true
+        });
     </script>
 </head>
 @yield('css')

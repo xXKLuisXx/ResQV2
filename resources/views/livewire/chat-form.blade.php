@@ -6,3 +6,10 @@
     </div>
 </div>
 
+<script>
+    var channel = pusher.subscribe('chat-channel');
+    channel.bind('message-event', function(data) {
+        console.log(data);
+        window.livewire.emit("catchMessage", data);
+    });
+</script>

@@ -9,6 +9,7 @@ use Livewire\Component;
 class ChatList extends Component
 {
     public $chatMessages;
+    public $chat_id;
 
     protected $listeners = ["catchMessage"];
 
@@ -17,7 +18,9 @@ class ChatList extends Component
     }
 
     public function catchMessage($message){
-        array_push($this->chatMessages, $message);
+        if($this->chat_id == $message['message']['chat_id']){
+            array_push($this->chatMessages, $message);
+        }
     }
 
     public function render()

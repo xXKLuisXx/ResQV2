@@ -21,7 +21,7 @@
                 </div>
                 @endif
                 @endforeach
-                @livewire('chat-list')
+                @livewire('chat-list', ['chat_id' => $chat_id])
             </div>
             <div style="padding: 5px; width: 100%;">
                 @livewire('chat-form', ['chat_id' => $chat_id])

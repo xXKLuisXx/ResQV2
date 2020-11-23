@@ -42,7 +42,9 @@
 				{{ $chat->users->where('id', '!=', Auth::user()->id )->first()->name }}
 			</dt>
 			<dd class="mt-2 text-base text-gray-500">
-				{{ $chat->mensajes->last()->content}}
+				@if (isset($chat->mensajes->last()->content))
+				{{ $chat->mensajes->last()->content}}	
+				@endif
 			</dd>
 		</div>
 		<div style="display: flex">
