@@ -6,6 +6,7 @@ use App\Comentario;
 use App\Historia;
 use App\Imagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ComentarioController extends Controller
 {
@@ -40,6 +41,15 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $response = Http::post('http://192.168.100.7:8100/', [
+            'text' => $request->comentario,
+        ]);
+
+        if($response['permited'] == false) {
+            return redirect()->route('historia.index')->with('message', 'Esta historia contiene mensajes inapropiados');
+        }
+
         $input = $request->all();
         \Log::info($input);
         $comentario = new Comentario();
