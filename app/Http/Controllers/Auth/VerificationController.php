@@ -62,7 +62,7 @@ class VerificationController extends Controller
     public function resent(Request $request){
         if ($request->user_id == \Auth::id()) {
             $user = User::find($request->input('user_id'));
-            $enlace = "http://127.0.0.1:8000/verificationEmail?api_token=".hash('sha256', $user->email)."&user_id=".$user->id;
+            $enlace = "http://3.129.247.244/verificationEmail?api_token=".hash('sha256', $user->email)."&user_id=".$user->id;
             Mail::to($user->email)->send(new VerificationMail($enlace));
         } else {
 

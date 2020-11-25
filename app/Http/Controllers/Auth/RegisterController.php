@@ -80,7 +80,7 @@ class RegisterController extends Controller
 
         $user->roles()->attach(Role::where('name', 'user')->first());
 
-        $enlace = "http://127.0.0.1:8000/verificationEmail?api_token=".$token."&user_id=".$user->id;
+        $enlace = "http://3.129.247.244/verificationEmail?api_token=".$token."&user_id=".$user->id;
         Mail::to($user)->send(new VerificationMail($enlace));
 
         return $user;
