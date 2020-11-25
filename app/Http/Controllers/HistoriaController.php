@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use App\Scopes\PublicScope;
+use Illuminate\Support\Facades\Http;
 
 class HistoriaController extends Controller
 {
@@ -48,11 +49,19 @@ class HistoriaController extends Controller
     {
         $request->validate([
             'titulo' => 'required|min:5',
-            'contenido' => 'required|min:25',
+            'contenido' => 'required|min:5',
             'privacidad' => 'required',
             'imagenes' => '',
             'etiquetas' => '',
         ]);
+
+        $response = Http::post('http://192.168.100.7:8100/', [
+            'text' => $request->contenido,
+        ]);
+
+        if($response['permited'] == false) {
+            return redirect()->route('historia.index')->with('message', 'Esta historia contiene mensajes inapropiados');
+        }
 
         $historia = new Historia();
         $historia->contenido = $request->contenido;
