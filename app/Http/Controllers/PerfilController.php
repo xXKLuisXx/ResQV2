@@ -97,9 +97,12 @@ class PerfilController extends Controller
 
         $is_valid_chat = false;
         //si el id es diferente al mio
-        if($user->id != Auth::user()->id){
-            if($user->roles->find(3) != null){
-                $is_valid_chat = true;
+
+        if(Auth::user()->roles->find(3) == null){
+            if($user->id != Auth::user()->id){
+                if($user->roles->find(3) != null){
+                    $is_valid_chat = true;
+                }
             }
         }
         
