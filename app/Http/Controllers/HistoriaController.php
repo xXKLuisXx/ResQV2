@@ -55,7 +55,7 @@ class HistoriaController extends Controller
             'etiquetas' => '',
         ]);
 
-        $response = Http::post('http://18.223.169.158:8100/', [
+        $response = Http::post('http://13.58.117.240:8100/', [
             'text' => $request->contenido,
         ]);
 
