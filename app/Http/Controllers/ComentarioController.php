@@ -46,7 +46,7 @@ class ComentarioController extends Controller
         ]);
 
         if($response['permited'] == false) {
-            return redirect()->route('historia.index')->with('message', 'Esta historia contiene mensajes inapropiados');
+            return redirect()->route('historia.index')->with('error', 'Esta historia contiene mensajes inapropiados');
         }
 
         $input = $request->all();
