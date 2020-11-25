@@ -46,7 +46,7 @@
             </div>
             @if ($is_valid_chat)
             <div style="display: flex; justify-content: flex-end; align-items: center; width: 100%">
-                {{ _('Chat 2')}}
+                {{ _('Chat')}}
                 <form action="{{ action('ChatController@store') }}" method="POST">
                     @csrf
                     <input name="user_id" value="{{ $user->id }}" type="number" hidden>
